@@ -1,0 +1,264 @@
+﻿using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using Revenuemanagement.Models;
+using Revenuemanagement.Services;
+
+namespace Revenuemanagement
+{
+    /// <summary>
+    /// Диалог добавления дохода или расхода.
+    /// </summary>
+    public class TransactionDialogForm : Form
+    {
+        private const int Pad = 28;
+        private const int FieldW = 420;
+        private const int Row = 36;
+
+        private readonly FinanceManager _manager;
+        private readonly bool _isIncome;
+
+        private ComboBox cmbCategory;
+        private Button btnAddCategory;
+        private ComboBox cmbShop;
+        private Label lblShop;
+        private TextBox txtAmount;
+        private ComboBox cmbCurrency;
+        private TextBox txtNote;
+        private Button btnSave;
+        private Button btnCancel;
+
+        public TransactionDialogForm(FinanceManager manager, bool isIncome)
+        {
+            _manager = manager;
+            _isIncome = isIncome;
+            BuildUi();
+        }
+
+        private void BuildUi()
+        {
+            Text = _isIncome ? "Добавить доход" : "Добавить расход";
+            StartPosition = FormStartPosition.CenterParent;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            ClientSize = new Size(520, _isIncome ? 440 : 500);
+            Padding = new Padding(Pad);
+            BackColor = UiHelper.BgMain;
+            Font = UiHelper.BodyFont;
+
+            int y = Pad;
+
+            var lblTitle = new Label
+            {
+                Text = _isIncome ? "💰  Новый доход" : "🛒  Новая трата",
+                Font = UiHelper.TitleFont,
+                ForeColor = UiHelper.TextDark,
+                Location = new Point(Pad, y),
+                AutoSize = true
+            };
+            y += 48;
+
+            Controls.Add(MakeLabel("Категория:", y));
+            y += 22;
+            cmbCategory = new ComboBox
+            {
+                Location = new Point(Pad, y),
+                Size = new Size(FieldW - 52, 32),
+                Font = UiHelper.BodyFont,
+                DropDownStyle = ComboBoxStyle.DropDown
+            };
+            ReloadCategories();
+            cmbCategory.TextChanged += (s, e) => UpdateShopVisibility();
+            cmbCategory.SelectedIndexChanged += (s, e) => UpdateShopVisibility();
+
+            btnAddCategory = new Button
+            {
+                Text = "+",
+                Location = new Point(Pad + FieldW - 44, y - 1),
+                Size = new Size(44, 34),
+                Font = new Font("Segoe UI Semibold", 14f, FontStyle.Bold)
+            };
+            UiHelper.StyleFlatButton(btnAddCategory, Theme.AccentBlue, Color.White);
+            btnAddCategory.TextAlign = ContentAlignment.MiddleCenter;
+            btnAddCategory.Click += BtnAddCategory_Click;
+
+            y += Row + 16;
+
+            lblShop = MakeLabel("Магазин (для «Продукты»):", y);
+            lblShop.Visible = false;
+            y += 22;
+            cmbShop = new ComboBox
+            {
+                Location = new Point(Pad, y),
+                Size = new Size(FieldW, 32),
+                Font = UiHelper.BodyFont,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Visible = false
+            };
+            cmbShop.Items.AddRange(GroceryShops.All);
+            cmbShop.SelectedIndex = 0;
+
+            if (!_isIncome)
+                y += Row + 16;
+
+            Controls.Add(MakeLabel("Сумма:", y));
+            var lblCurrency = MakeLabel("Валюта:", y);
+            lblCurrency.Location = new Point(Pad + 240, y);
+            y += 22;
+
+            txtAmount = new TextBox
+            {
+                Location = new Point(Pad, y),
+                Size = new Size(200, 32),
+                Font = UiHelper.BodyFont
+            };
+
+            cmbCurrency = new ComboBox
+            {
+                Location = new Point(Pad + 240, y),
+                Size = new Size(180, 32)
+            };
+            UiHelper.FillCurrencyCombo(cmbCurrency);
+
+            y += Row + 20;
+            Controls.Add(MakeLabel("Заметка (необязательно):", y));
+            y += 22;
+            txtNote = new TextBox
+            {
+                Location = new Point(Pad, y),
+                Size = new Size(FieldW, 32),
+                Font = UiHelper.BodyFont
+            };
+
+            y += Row + 28;
+            btnSave = new Button
+            {
+                Text = _isIncome ? "✔  Сохранить доход" : "✔  Сохранить расход",
+                Size = new Size(250, 48),
+                Location = new Point(Pad, y)
+            };
+            UiHelper.StyleFlatButton(btnSave, _isIncome ? UiHelper.AccentGreen : UiHelper.AccentRed, Color.White);
+            btnSave.TextAlign = ContentAlignment.MiddleCenter;
+            btnSave.Click += BtnSave_Click;
+
+            btnCancel = new Button
+            {
+                Text = "Отмена",
+                Size = new Size(150, 48),
+                Location = new Point(Pad + 270, y)
+            };
+            UiHelper.StyleFlatButton(btnCancel, Color.FromArgb(200, 205, 215), UiHelper.TextDark);
+            btnCancel.TextAlign = ContentAlignment.MiddleCenter;
+            btnCancel.Click += (s, e) => DialogResult = DialogResult.Cancel;
+
+            Controls.Add(lblTitle);
+            Controls.Add(cmbCategory);
+            Controls.Add(btnAddCategory);
+            Controls.Add(lblShop);
+            Controls.Add(cmbShop);
+            Controls.Add(txtAmount);
+            Controls.Add(cmbCurrency);
+            Controls.Add(txtNote);
+            Controls.Add(btnSave);
+            Controls.Add(btnCancel);
+
+            AcceptButton = btnSave;
+            CancelButton = btnCancel;
+
+            Theme.ApplyTo(this);
+            UpdateShopVisibility();
+        }
+
+        private void ReloadCategories()
+        {
+            string prev = cmbCategory.Text;
+            cmbCategory.Items.Clear();
+            var list = _isIncome ? _manager.GetIncomeCategories() : _manager.GetExpenseCategories();
+            cmbCategory.Items.AddRange(list.Cast<object>().ToArray());
+            if (!string.IsNullOrWhiteSpace(prev))
+                cmbCategory.Text = prev;
+            else if (cmbCategory.Items.Count > 0)
+                cmbCategory.SelectedIndex = 0;
+        }
+
+        private void BtnAddCategory_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new SimpleInputForm(
+                "Новая категория",
+                "Введите название категории (например, «Маникюр»):"))
+            {
+                if (dlg.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    string added = _isIncome
+                        ? _manager.AddIncomeCategory(dlg.InputText)
+                        : _manager.AddExpenseCategory(dlg.InputText);
+                    ReloadCategories();
+                    cmbCategory.Text = added;
+                    UpdateShopVisibility();
+                }
+                catch (Exception ex)
+                {
+                    UiHelper.ShowError(this, ex.Message);
+                }
+            }
+        }
+
+        private void UpdateShopVisibility()
+        {
+            if (_isIncome)
+                return;
+
+            bool show = string.Equals(cmbCategory.Text.Trim(), "Продукты", StringComparison.OrdinalIgnoreCase);
+            lblShop.Visible = show;
+            cmbShop.Visible = show;
+        }
+
+        private Label MakeLabel(string text, int top)
+        {
+            var lbl = new Label
+            {
+                Text = text,
+                Location = new Point(Pad, top),
+                AutoSize = true,
+                ForeColor = UiHelper.TextMuted,
+                Font = UiHelper.BodyFont
+            };
+            Controls.Add(lbl);
+            return lbl;
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string category = cmbCategory.Text;
+                if (!UiHelper.TryParseAmount(txtAmount.Text, out decimal amount))
+                {
+                    UiHelper.ShowError(this, "Введите сумму больше нуля.\nМожно использовать точку или запятую.");
+                    txtAmount.Focus();
+                    return;
+                }
+
+                CurrencyType currency = UiHelper.GetSelectedCurrency(cmbCurrency);
+                string note = txtNote.Text.Trim();
+                string shop = (!_isIncome && cmbShop.Visible) ? cmbShop.Text : string.Empty;
+
+                if (_isIncome)
+                    _manager.AddIncome(category, amount, currency, note);
+                else
+                    _manager.AddExpense(category, amount, currency, note, shop);
+
+                DialogResult = DialogResult.OK;
+            }
+            catch (Exception ex)
+            {
+                UiHelper.ShowError(this, ex.Message);
+            }
+        }
+    }
+}

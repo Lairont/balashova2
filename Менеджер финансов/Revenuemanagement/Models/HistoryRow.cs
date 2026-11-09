@@ -1,0 +1,56 @@
+using System;
+
+namespace Revenuemanagement.Models
+{
+    public enum HistoryPeriod
+    {
+        AllTime = 0,
+        ThisMonth = 1,
+        LastMonth = 2
+    }
+
+    /// <summary>Строка для таблицы истории (с Id для удаления/редактирования).</summary>
+    public class HistoryRow
+    {
+        public Guid Id { get; set; }
+        public TransactionType Type { get; set; }
+        public decimal Amount { get; set; }
+        public CurrencyType Currency { get; set; }
+        public string Дата { get; set; }
+        public string Тип { get; set; }
+        public string Категория { get; set; }
+        public string Магазин { get; set; }
+        public string Сумма { get; set; }
+        public string Валюта { get; set; }
+        public string Заметка { get; set; }
+    }
+
+    public enum HistoryTypeFilter
+    {
+        All = 0,
+        Income = 1,
+        Expense = 2,
+        Debts = 3,
+        Exchange = 4
+    }
+
+    public class DayExpenseTotal
+    {
+        public DateTime Date { get; set; }
+        public decimal TotalRubEquivalent { get; set; }
+        public string Summary { get; set; }
+    }
+
+    public class CategoryTotal
+    {
+        public string Category { get; set; }
+        public decimal Total { get; set; }
+    }
+
+    public class IncomeCategoryTotal
+    {
+        public string Category { get; set; }
+        public decimal Total { get; set; }
+        public string CurrencyHint { get; set; }
+    }
+}

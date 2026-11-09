@@ -1,0 +1,444 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|c:\\users\\pank\\desktop\\\u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\revenuemanagement\\editbalanceform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:editbalanceform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\theme.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:theme.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\transactiondialogform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:transactiondialogform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\dailyexpensesform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:dailyexpensesform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\debtsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:debtsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\editbalanceform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:editbalanceform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\edittransactionform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:edittransactionform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\exchangedialogform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:exchangedialogform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\expenseprinthelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:expenseprinthelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\debtsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:debtsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\dailyexpensesform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:dailyexpensesform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\models\\debt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:models\\debt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\exchangedialogform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:exchangedialogform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\transactiondialogform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:transactiondialogform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\edittransactionform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:edittransactionform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pank\\Desktop\\Revenuemanagement (2)\\Revenuemanagement\\Models\\CategoryDefaults.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\SimpleInputForm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SimpleInputForm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\services\\jsondatastore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:services\\jsondatastore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\services\\financemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:services\\financemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\models\\currencytype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:models\\currencytype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\expensepiepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:expensepiepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\models\\historyrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7EA6F2BA-F2A5-42F9-B8C9-F02A3243E8DB}|Revenuemanagement.csproj|solutionrelative:models\\historyrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EditBalanceForm.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\EditBalanceForm.cs",
+              "RelativeDocumentMoniker": "EditBalanceForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\EditBalanceForm.cs",
+              "RelativeToolTip": "EditBalanceForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-29T08:35:26.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EditTransactionForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\EditTransactionForm.cs",
+              "RelativeDocumentMoniker": "EditTransactionForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\EditTransactionForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "EditTransactionForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:38:57.234Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EditBalanceForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\EditBalanceForm.cs",
+              "RelativeDocumentMoniker": "EditBalanceForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\EditBalanceForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "EditBalanceForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-23T17:24:59.672Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TransactionDialogForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\TransactionDialogForm.cs",
+              "RelativeDocumentMoniker": "TransactionDialogForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\TransactionDialogForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "TransactionDialogForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T10:53:06.467Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:08.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ExchangeDialogForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\ExchangeDialogForm.cs",
+              "RelativeDocumentMoniker": "ExchangeDialogForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\ExchangeDialogForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "ExchangeDialogForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:05.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Theme.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Theme.cs",
+              "RelativeDocumentMoniker": "Theme.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Theme.cs",
+              "RelativeToolTip": "Theme.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAowCQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:12.375Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DailyExpensesForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\DailyExpensesForm.cs",
+              "RelativeDocumentMoniker": "DailyExpensesForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\DailyExpensesForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "DailyExpensesForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-29T08:31:31.173Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-23T16:01:00.357Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DebtsForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\DebtsForm.cs",
+              "RelativeDocumentMoniker": "DebtsForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\DebtsForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "DebtsForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-23T17:25:01.003Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Form1.Designer.cs",
+              "RelativeToolTip": "Form1.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T19:25:14.229Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ExpensePrintHelper.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\ExpensePrintHelper.cs",
+              "RelativeDocumentMoniker": "ExpensePrintHelper.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\ExpensePrintHelper.cs",
+              "RelativeToolTip": "ExpensePrintHelper.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T13:00:20.021Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAABACAAAAAAAAAAAAABACAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:59.718Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Debt.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Models\\Debt.cs",
+              "RelativeDocumentMoniker": "Models\\Debt.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Models\\Debt.cs",
+              "RelativeToolTip": "Models\\Debt.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:31.285Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "DebtsForm.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\DebtsForm.cs",
+              "RelativeDocumentMoniker": "DebtsForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\DebtsForm.cs",
+              "RelativeToolTip": "DebtsForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T12:58:46.008Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DailyExpensesForm.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\DailyExpensesForm.cs",
+              "RelativeDocumentMoniker": "DailyExpensesForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\DailyExpensesForm.cs",
+              "RelativeToolTip": "DailyExpensesForm.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T12:58:51.019Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ExchangeDialogForm.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\ExchangeDialogForm.cs",
+              "RelativeDocumentMoniker": "ExchangeDialogForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\ExchangeDialogForm.cs",
+              "RelativeToolTip": "ExchangeDialogForm.cs",
+              "ViewState": "AgIAAM4AAAAAAAAAAAAswOAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T13:00:56.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "EditTransactionForm.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\EditTransactionForm.cs",
+              "RelativeDocumentMoniker": "EditTransactionForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\EditTransactionForm.cs",
+              "RelativeToolTip": "EditTransactionForm.cs",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T12:57:58.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "TransactionDialogForm.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\TransactionDialogForm.cs",
+              "RelativeDocumentMoniker": "TransactionDialogForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\TransactionDialogForm.cs",
+              "RelativeToolTip": "TransactionDialogForm.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAowMwAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-25T13:11:44.244Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "SimpleInputForm.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\SimpleInputForm.cs",
+              "RelativeDocumentMoniker": "SimpleInputForm.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\SimpleInputForm.cs",
+              "RelativeToolTip": "SimpleInputForm.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-25T13:08:32.834Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "CategoryDefaults.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\Revenuemanagement (2)\\Revenuemanagement\\Models\\CategoryDefaults.cs",
+              "RelativeDocumentMoniker": "..\\..\\Revenuemanagement (2)\\Revenuemanagement\\Models\\CategoryDefaults.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\Revenuemanagement (2)\\Revenuemanagement\\Models\\CategoryDefaults.cs",
+              "RelativeToolTip": "..\\..\\Revenuemanagement (2)\\Revenuemanagement\\Models\\CategoryDefaults.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-25T13:08:18.29Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "HistoryRow.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Models\\HistoryRow.cs",
+              "RelativeDocumentMoniker": "Models\\HistoryRow.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Models\\HistoryRow.cs",
+              "RelativeToolTip": "Models\\HistoryRow.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-25T13:06:45.833Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "JsonDataStore.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Services\\JsonDataStore.cs",
+              "RelativeDocumentMoniker": "Services\\JsonDataStore.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Services\\JsonDataStore.cs",
+              "RelativeToolTip": "Services\\JsonDataStore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:49.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "FinanceManager.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Services\\FinanceManager.cs",
+              "RelativeDocumentMoniker": "Services\\FinanceManager.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Services\\FinanceManager.cs",
+              "RelativeToolTip": "Services\\FinanceManager.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:45.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Transaction.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Models\\Transaction.cs",
+              "RelativeDocumentMoniker": "Models\\Transaction.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Models\\Transaction.cs",
+              "RelativeToolTip": "Models\\Transaction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:42.627Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "CurrencyType.cs",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Models\\CurrencyType.cs",
+              "RelativeDocumentMoniker": "Models\\CurrencyType.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\Models\\CurrencyType.cs",
+              "RelativeToolTip": "Models\\CurrencyType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T13:39:36.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ExpensePiePanel.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\ExpensePiePanel.cs",
+              "RelativeDocumentMoniker": "ExpensePiePanel.cs",
+              "ToolTip": "C:\\Users\\pank\\Desktop\\\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440 \u0444\u0438\u043D\u0430\u043D\u0441\u043E\u0432\\Revenuemanagement\\ExpensePiePanel.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "ExpensePiePanel.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-23T16:50:04.784Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

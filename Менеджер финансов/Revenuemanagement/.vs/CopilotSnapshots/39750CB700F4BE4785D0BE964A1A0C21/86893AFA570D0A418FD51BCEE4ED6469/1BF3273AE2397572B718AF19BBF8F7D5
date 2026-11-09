@@ -1,0 +1,574 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Revenuemanagement.Models;
+
+namespace Revenuemanagement.Services
+{
+    /// <summary>
+    /// Бизнес-логика: балансы, доходы, расходы, обмен валют, долги.
+    /// </summary>
+    public class FinanceManager
+    {
+        private readonly JsonDataStore _store;
+        private FinanceData _data;
+
+        public FinanceManager(JsonDataStore store = null)
+        {
+            _store = store ?? new JsonDataStore();
+            _data = _store.Load();
+            EnsureCollections();
+        }
+
+        public FinanceData Data => _data;
+        public Balances Balances => _data.Balances;
+        public string DataFilePath => _store.FilePath;
+        public bool IsDarkTheme
+        {
+            get => _data.IsDarkTheme;
+            set
+            {
+                _data.IsDarkTheme = value;
+                Save();
+            }
+        }
+
+        public void Load()
+        {
+            _data = _store.Load();
+            EnsureCollections();
+        }
+
+        public void Save()
+        {
+            _store.Save(_data);
+        }
+
+        private void EnsureCollections()
+        {
+            if (_data.Balances == null)
+                _data.Balances = new Balances();
+            if (_data.Transactions == null)
+                _data.Transactions = new List<Transaction>();
+            if (_data.Debts == null)
+                _data.Debts = new List<Debt>();
+            if (_data.ExpenseCategories == null)
+                _data.ExpenseCategories = new List<string>();
+            if (_data.IncomeCategories == null)
+                _data.IncomeCategories = new List<string>();
+            if (_data.ExchangeRates == null)
+                _data.ExchangeRates = new Dictionary<string, decimal>();
+
+            if (_data.ExpenseCategories.Count == 0)
+                _data.ExpenseCategories.AddRange(CategoryDefaults.Expense);
+            if (_data.IncomeCategories.Count == 0)
+                _data.IncomeCategories.AddRange(CategoryDefaults.Income);
+        }
+
+        public IReadOnlyList<string> GetExpenseCategories()
+        {
+            return _data.ExpenseCategories.ToList();
+        }
+
+        public IReadOnlyList<string> GetIncomeCategories()
+        {
+            return _data.IncomeCategories.ToList();
+        }
+
+        public string AddExpenseCategory(string name)
+        {
+            return AddCategoryToList(_data.ExpenseCategories, name);
+        }
+
+        public string AddIncomeCategory(string name)
+        {
+            return AddCategoryToList(_data.IncomeCategories, name);
+        }
+
+        private string AddCategoryToList(List<string> list, string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new InvalidOperationException("Введите название категории.");
+
+            string trimmed = name.Trim();
+            if (list.Any(c => string.Equals(c, trimmed, StringComparison.OrdinalIgnoreCase)))
+                return list.First(c => string.Equals(c, trimmed, StringComparison.OrdinalIgnoreCase));
+
+            list.Add(trimmed);
+            Save();
+            return trimmed;
+        }
+
+        public static string ExchangeRateKey(CurrencyType from, CurrencyType to)
+        {
+            return from + "_" + to;
+        }
+
+        public decimal? GetSavedExchangeRate(CurrencyType from, CurrencyType to)
+        {
+            string key = ExchangeRateKey(from, to);
+            if (_data.ExchangeRates.TryGetValue(key, out decimal rate) && rate > 0)
+                return rate;
+            return null;
+        }
+
+        public void SaveExchangeRate(CurrencyType from, CurrencyType to, decimal rate)
+        {
+            if (rate <= 0)
+                throw new InvalidOperationException("Курс должен быть больше нуля.");
+            _data.ExchangeRates[ExchangeRateKey(from, to)] = rate;
+            Save();
+        }
+
+        public Transaction AddIncome(string category, decimal amount, CurrencyType currency, string note = "")
+        {
+            ValidateAmount(amount);
+            ValidateCategory(category);
+
+            _data.Balances.Add(currency, amount);
+
+            var tx = new Transaction
+            {
+                Type = TransactionType.Income,
+                Category = category.Trim(),
+                Amount = amount,
+                Currency = currency,
+                Note = note ?? string.Empty,
+                Date = DateTime.Now
+            };
+            _data.Transactions.Insert(0, tx);
+            Save();
+            return tx;
+        }
+
+        public Transaction AddExpense(string category, decimal amount, CurrencyType currency, string note = "", string shop = "")
+        {
+            ValidateAmount(amount);
+            ValidateCategory(category);
+            EnsureEnoughMoney(currency, amount);
+
+            _data.Balances.Add(currency, -amount);
+
+            string shopTrim = (shop ?? string.Empty).Trim();
+            if (!string.Equals(category.Trim(), "Продукты", StringComparison.OrdinalIgnoreCase))
+                shopTrim = string.Empty;
+
+            var tx = new Transaction
+            {
+                Type = TransactionType.Expense,
+                Category = category.Trim(),
+                Amount = amount,
+                Currency = currency,
+                Note = note ?? string.Empty,
+                Shop = shopTrim,
+                Date = DateTime.Now
+            };
+            _data.Transactions.Insert(0, tx);
+            Save();
+            return tx;
+        }
+
+        public Transaction Exchange(
+            CurrencyType fromCurrency,
+            decimal fromAmount,
+            CurrencyType toCurrency,
+            decimal toAmount)
+        {
+            if (fromCurrency == toCurrency)
+                throw new InvalidOperationException("Выберите разные валюты для обмена.");
+
+            ValidateAmount(fromAmount);
+            ValidateAmount(toAmount);
+            EnsureEnoughMoney(fromCurrency, fromAmount);
+
+            _data.Balances.Add(fromCurrency, -fromAmount);
+            _data.Balances.Add(toCurrency, toAmount);
+
+            string note = string.Format(
+                "Отдано {0:N2} {1} → получено {2:N2} {3}",
+                fromAmount, CurrencyLabel(fromCurrency),
+                toAmount, CurrencyLabel(toCurrency));
+
+            var tx = new Transaction
+            {
+                Type = TransactionType.Exchange,
+                Category = "Обмен валют",
+                Amount = toAmount,
+                Currency = toCurrency,
+                ExchangeFromCurrency = fromCurrency,
+                ExchangeFromAmount = fromAmount,
+                Note = note,
+                Date = DateTime.Now
+            };
+            _data.Transactions.Insert(0, tx);
+            Save();
+            return tx;
+        }
+
+        public Debt AddDebt(
+            string personName,
+            decimal amount,
+            CurrencyType currency,
+            bool isOwedToMe,
+            DateTime? dueDate = null,
+            string note = "")
+        {
+            ValidateAmount(amount);
+            if (string.IsNullOrWhiteSpace(personName))
+                throw new InvalidOperationException("Укажите имя человека.");
+
+            var debt = new Debt
+            {
+                PersonName = personName.Trim(),
+                Amount = amount,
+                Currency = currency,
+                IsOwedToMe = isOwedToMe,
+                IsPaid = false,
+                Note = note ?? string.Empty,
+                CreatedDate = DateTime.Now,
+                DueDate = dueDate.HasValue ? dueDate.Value.Date : (DateTime?)null
+            };
+            _data.Debts.Insert(0, debt);
+
+            var tx = new Transaction
+            {
+                Type = TransactionType.DebtCreated,
+                Category = isOwedToMe
+                    ? "Долг мне: " + debt.PersonName
+                    : "Мой долг: " + debt.PersonName,
+                Amount = amount,
+                Currency = currency,
+                Note = dueDate.HasValue
+                    ? "Погасить до " + dueDate.Value.ToString("dd.MM.yyyy")
+                    : (note ?? string.Empty),
+                RelatedDebtId = debt.Id,
+                Date = DateTime.Now
+            };
+            _data.Transactions.Insert(0, tx);
+            Save();
+            return debt;
+        }
+
+        public void PayDebt(Guid debtId)
+        {
+            Debt debt = _data.Debts.FirstOrDefault(d => d.Id == debtId);
+            if (debt == null)
+                throw new InvalidOperationException("Долг не найден.");
+            if (debt.IsPaid)
+                throw new InvalidOperationException("Этот долг уже погашен.");
+
+            if (debt.IsOwedToMe)
+                _data.Balances.Add(debt.Currency, debt.Amount);
+            else
+            {
+                EnsureEnoughMoney(debt.Currency, debt.Amount);
+                _data.Balances.Add(debt.Currency, -debt.Amount);
+            }
+
+            debt.IsPaid = true;
+
+            var tx = new Transaction
+            {
+                Type = TransactionType.DebtPaid,
+                Category = "Погашение: " + debt.PersonName,
+                Amount = debt.Amount,
+                Currency = debt.Currency,
+                Note = debt.IsOwedToMe ? "Получено в счёт долга" : "Отдано в счёт долга",
+                RelatedDebtId = debt.Id,
+                Date = DateTime.Now
+            };
+            _data.Transactions.Insert(0, tx);
+            Save();
+        }
+
+        /// <summary>Прямая правка балансов (если случайно ввели неверно).</summary>
+        public void SetBalances(decimal prb, decimal rub, decimal usd, decimal eur)
+        {
+            if (prb < 0 || rub < 0 || usd < 0 || eur < 0)
+                throw new InvalidOperationException("Баланс не может быть отрицательным.");
+
+            _data.Balances.PRB = prb;
+            _data.Balances.RUB = rub;
+            _data.Balances.USD = usd;
+            _data.Balances.EUR = eur;
+
+            // Только запись в историю — баланс уже задан выше, повторно не меняем
+            var log = new Transaction
+            {
+                Type = TransactionType.Exchange,
+                Category = "Корректировка баланса",
+                Amount = 0,
+                Currency = CurrencyType.PRB,
+                Note = string.Format(
+                    "Установлено: PRB {0:N2} | RUB {1:N2} | USD {2:N2} | EUR {3:N2}",
+                    prb, rub, usd, eur),
+                Date = DateTime.Now
+            };
+            _data.Transactions.Insert(0, log);
+            Save();
+        }
+
+        /// <summary>Удалить операцию и откатить её влияние на баланс (где возможно).</summary>
+        public void DeleteTransaction(Guid id)
+        {
+            Transaction tx = _data.Transactions.FirstOrDefault(t => t.Id == id);
+            if (tx == null)
+                throw new InvalidOperationException("Запись не найдена.");
+
+            switch (tx.Type)
+            {
+                case TransactionType.Income:
+                    // Корректировка с нулевой суммой — просто убрать из истории
+                    if (tx.Amount > 0)
+                    {
+                        EnsureEnoughMoney(tx.Currency, tx.Amount);
+                        _data.Balances.Add(tx.Currency, -tx.Amount);
+                    }
+                    break;
+
+                case TransactionType.Expense:
+                    _data.Balances.Add(tx.Currency, tx.Amount);
+                    break;
+
+                case TransactionType.Exchange:
+                    if (tx.Category != null && tx.Category.IndexOf("Корректировка", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        // Только запись в истории — баланс не трогаем
+                        break;
+                    }
+                    if (tx.ExchangeFromCurrency.HasValue && tx.ExchangeFromAmount.HasValue)
+                    {
+                        // Откат: вернуть отданное, списать полученное
+                        EnsureEnoughMoney(tx.Currency, tx.Amount);
+                        _data.Balances.Add(tx.Currency, -tx.Amount);
+                        _data.Balances.Add(tx.ExchangeFromCurrency.Value, tx.ExchangeFromAmount.Value);
+                    }
+                    break;
+
+                case TransactionType.DebtCreated:
+                    if (tx.RelatedDebtId.HasValue)
+                    {
+                        Debt debt = _data.Debts.FirstOrDefault(d => d.Id == tx.RelatedDebtId.Value);
+                        if (debt != null && !debt.IsPaid)
+                            _data.Debts.Remove(debt);
+                    }
+                    break;
+
+                case TransactionType.DebtPaid:
+                    if (tx.RelatedDebtId.HasValue)
+                    {
+                        Debt debt = _data.Debts.FirstOrDefault(d => d.Id == tx.RelatedDebtId.Value);
+                        if (debt != null && debt.IsPaid)
+                        {
+                            // Откат погашения
+                            if (debt.IsOwedToMe)
+                            {
+                                EnsureEnoughMoney(debt.Currency, debt.Amount);
+                                _data.Balances.Add(debt.Currency, -debt.Amount);
+                            }
+                            else
+                            {
+                                _data.Balances.Add(debt.Currency, debt.Amount);
+                            }
+                            debt.IsPaid = false;
+                        }
+                    }
+                    break;
+            }
+
+            _data.Transactions.Remove(tx);
+            Save();
+        }
+
+        /// <summary>Изменить сумму/категорию дохода или расхода.</summary>
+        public void EditTransaction(Guid id, string category, decimal newAmount, CurrencyType currency, string shop = "")
+        {
+            Transaction tx = _data.Transactions.FirstOrDefault(t => t.Id == id);
+            if (tx == null)
+                throw new InvalidOperationException("Запись не найдена.");
+
+            if (tx.Type != TransactionType.Income && tx.Type != TransactionType.Expense)
+                throw new InvalidOperationException("Редактировать можно только доход или расход.\nОбмен и долги лучше удалить и создать заново.");
+
+            ValidateAmount(newAmount);
+            ValidateCategory(category);
+
+            // Откат старого эффекта
+            if (tx.Type == TransactionType.Income)
+            {
+                EnsureEnoughMoney(tx.Currency, tx.Amount);
+                _data.Balances.Add(tx.Currency, -tx.Amount);
+            }
+            else
+            {
+                _data.Balances.Add(tx.Currency, tx.Amount);
+            }
+
+            // Применение нового
+            if (tx.Type == TransactionType.Income)
+            {
+                _data.Balances.Add(currency, newAmount);
+            }
+            else
+            {
+                EnsureEnoughMoney(currency, newAmount);
+                _data.Balances.Add(currency, -newAmount);
+            }
+
+            tx.Category = category.Trim();
+            tx.Amount = newAmount;
+            tx.Currency = currency;
+            string shopTrim = (shop ?? string.Empty).Trim();
+            if (!string.Equals(tx.Category, "Продукты", StringComparison.OrdinalIgnoreCase))
+                shopTrim = string.Empty;
+            tx.Shop = shopTrim;
+            Save();
+        }
+
+        public Transaction GetTransaction(Guid id)
+        {
+            return _data.Transactions.FirstOrDefault(t => t.Id == id);
+        }
+
+        public IReadOnlyList<Transaction> GetTransactions(
+            HistoryPeriod period,
+            DateTime? exactDay = null,
+            int maxCount = 500)
+        {
+            IEnumerable<Transaction> query = _data.Transactions;
+
+            DateTime now = DateTime.Now;
+            if (period == HistoryPeriod.ThisMonth)
+            {
+                var from = new DateTime(now.Year, now.Month, 1);
+                query = query.Where(t => t.Date >= from);
+            }
+            else if (period == HistoryPeriod.LastMonth)
+            {
+                var firstThis = new DateTime(now.Year, now.Month, 1);
+                var firstLast = firstThis.AddMonths(-1);
+                query = query.Where(t => t.Date >= firstLast && t.Date < firstThis);
+            }
+
+            if (exactDay.HasValue)
+                query = query.Where(t => t.Date.Date == exactDay.Value.Date);
+
+            return query.OrderByDescending(t => t.Date).Take(maxCount).ToList();
+        }
+
+        public IReadOnlyList<DayExpenseTotal> GetExpenseTotalsByDay(HistoryPeriod period, DateTime? exactDay = null)
+        {
+            return GetTransactions(period, exactDay)
+                .Where(t => t.Type == TransactionType.Expense)
+                .GroupBy(t => t.Date.Date)
+                .OrderByDescending(g => g.Key)
+                .Select(g =>
+                {
+                    var byCur = g.GroupBy(x => x.Currency)
+                        .Select(cg => string.Format("{0:N2} {1}", cg.Sum(x => x.Amount), CurrencyShort(cg.Key)));
+                    string parts = string.Join(", ", byCur);
+                    return new DayExpenseTotal
+                    {
+                        Date = g.Key,
+                        TotalRubEquivalent = g.Where(x => x.Currency == CurrencyType.RUB).Sum(x => x.Amount),
+                        Summary = string.Format("{0:dd.MM.yyyy} — потрачено: {1}", g.Key, parts)
+                    };
+                })
+                .ToList();
+        }
+
+        public IReadOnlyList<CategoryTotal> GetExpenseTotalsByCategory(HistoryPeriod period, DateTime? exactDay = null)
+        {
+            return GetTransactions(period, exactDay)
+                .Where(t => t.Type == TransactionType.Expense)
+                .GroupBy(t => string.IsNullOrWhiteSpace(t.Category) ? "Другое" : t.CategoryDisplay)
+                .Select(g => new CategoryTotal
+                {
+                    Category = g.Key,
+                    Total = g.Sum(x => x.Amount)
+                })
+                .OrderByDescending(x => x.Total)
+                .ToList();
+        }
+
+        public IReadOnlyList<WorkIncomeTotal> GetIncomeTotalsByWork(HistoryPeriod period, DateTime? exactDay = null)
+        {
+            return GetTransactions(period, exactDay)
+                .Where(t => t.Type == TransactionType.Income)
+                .GroupBy(t => string.IsNullOrWhiteSpace(t.Category) ? "Другое" : t.Category)
+                .Select(g =>
+                {
+                    decimal total = g.Sum(x => x.Amount);
+                    var byCur = g.GroupBy(x => x.Currency)
+                        .Select(cg => string.Format("{0:N2} {1}", cg.Sum(x => x.Amount), CurrencyShort(cg.Key)));
+                    string currencyHint = total > 0 ? string.Join(", ", byCur) : "—";
+                    return new WorkIncomeTotal
+                    {
+                        Category = g.Key,
+                        Total = total,
+                        CurrencyHint = currencyHint
+                    };
+                })
+                .OrderByDescending(x => x.Total)
+                .ToList();
+        }
+
+        public IReadOnlyList<Debt> GetActiveDebts()
+        {
+            return _data.Debts.Where(d => !d.IsPaid).ToList();
+        }
+
+        public IReadOnlyList<Debt> GetAllDebts()
+        {
+            return _data.Debts.ToList();
+        }
+
+        private static void ValidateAmount(decimal amount)
+        {
+            if (amount <= 0)
+                throw new InvalidOperationException("Сумма должна быть больше нуля.");
+        }
+
+        private static void ValidateCategory(string category)
+        {
+            if (string.IsNullOrWhiteSpace(category))
+                throw new InvalidOperationException("Укажите категорию.");
+        }
+
+        private void EnsureEnoughMoney(CurrencyType currency, decimal amount)
+        {
+            decimal available = _data.Balances.Get(currency);
+            if (available < amount)
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        "Недостаточно средств. На балансе {0}: {1:N2}, нужно: {2:N2}.",
+                        CurrencyLabel(currency), available, amount));
+            }
+        }
+
+        public static string CurrencyLabel(CurrencyType currency)
+        {
+            switch (currency)
+            {
+                case CurrencyType.PRB: return "PRB (ПМР)";
+                case CurrencyType.RUB: return "RUB (РФ)";
+                case CurrencyType.USD: return "USD ($)";
+                case CurrencyType.EUR: return "EUR (€)";
+                default: return currency.ToString();
+            }
+        }
+
+        public static string CurrencyShort(CurrencyType currency)
+        {
+            switch (currency)
+            {
+                case CurrencyType.PRB: return "PRB";
+                case CurrencyType.RUB: return "RUB";
+                case CurrencyType.USD: return "USD";
+                case CurrencyType.EUR: return "EUR";
+                default: return currency.ToString();
+            }
+        }
+    }
+}

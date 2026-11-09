@@ -1,0 +1,209 @@
+{
+  "OwnerName": "Юлия",
+  "Balances": {
+    "PRB": 3278.00,
+    "RUB": 0.0,
+    "USD": 256.00,
+    "EUR": 20.0,
+    "MDL": 0.0
+  },
+  "Transactions": [
+    {
+      "Id": "23554dc0-755c-4432-83e9-3fc2f8c8cc87",
+      "Date": "2026-11-09T11:58:51",
+      "Type": 2,
+      "Category": "Обмен валют",
+      "Amount": 150.0,
+      "Currency": 2,
+      "Note": "Отдано 2 452,50 PRB (ПМР) → получено 150,00 USD ($)",
+      "Shop": "",
+      "ExchangeFromCurrency": 0,
+      "ExchangeFromAmount": 2452.50
+    },
+    {
+      "Id": "70573262-fdee-4fb9-acfd-240d7d91c17b",
+      "Date": "2026-11-09T11:58:38",
+      "Type": 2,
+      "Category": "Обмен валют",
+      "Amount": 20.0,
+      "Currency": 2,
+      "Note": "Отдано 327,00 PRB (ПМР) → получено 20,00 USD ($)",
+      "Shop": "",
+      "ExchangeFromCurrency": 0,
+      "ExchangeFromAmount": 327.00
+    },
+    {
+      "Id": "01880dda-cfc7-42b1-b103-ac887e189131",
+      "Date": "2026-11-09T11:40:45",
+      "Type": 2,
+      "Category": "Обмен валют",
+      "Amount": 20.0,
+      "Currency": 3,
+      "Note": "Отдано 375,00 PRB (ПМР) → получено 20,00 EUR (€)",
+      "Shop": "",
+      "ExchangeFromCurrency": 0,
+      "ExchangeFromAmount": 375.0
+    },
+    {
+      "Id": "f7cc70a6-200b-49f2-b340-68a95bced420",
+      "Date": "2026-11-09T11:39:16",
+      "Type": 4,
+      "Category": "Погашение: Минск",
+      "Amount": 64.0,
+      "Currency": 2,
+      "Note": "Отдано в счёт долга",
+      "Shop": "",
+      "RelatedDebtId": "d009c572-2128-4b68-a9e2-24de7cd1730f"
+    },
+    {
+      "Id": "e52f8ded-603c-4b45-8c28-3fca636c55cd",
+      "Date": "2026-11-09T11:39:03",
+      "Type": 3,
+      "Category": "Мой долг: Минск",
+      "Amount": 64.0,
+      "Currency": 2,
+      "Note": "",
+      "Shop": "",
+      "RelatedDebtId": "d009c572-2128-4b68-a9e2-24de7cd1730f"
+    },
+    {
+      "Id": "4199df01-d7dc-4cce-807f-c160f8c27b82",
+      "Date": "2026-11-09T11:38:13",
+      "Type": 1,
+      "Category": "гаражи",
+      "Amount": 55.0,
+      "Currency": 0,
+      "Note": "",
+      "Shop": ""
+    },
+    {
+      "Id": "fd009db9-783c-4211-8069-a8580375b406",
+      "Date": "2026-11-09T11:38:02",
+      "Type": 1,
+      "Category": "гаражи",
+      "Amount": 60.0,
+      "Currency": 0,
+      "Note": "",
+      "Shop": ""
+    },
+    {
+      "Id": "9aba4c3a-86f1-4f48-a9f8-bc5fcc523b3a",
+      "Date": "2026-11-09T11:37:48",
+      "Type": 1,
+      "Category": "Жильё",
+      "Amount": 700.0,
+      "Currency": 0,
+      "Note": "мамина",
+      "Shop": ""
+    },
+    {
+      "Id": "3cbbfe94-4945-466f-a5dd-4ccf076fe64c",
+      "Date": "2026-11-09T11:37:22",
+      "Type": 1,
+      "Category": "Жильё",
+      "Amount": 2000.0,
+      "Currency": 0,
+      "Note": "",
+      "Shop": ""
+    },
+    {
+      "Id": "670114d4-a65b-4dea-be29-59de0914762c",
+      "Date": "2026-11-09T11:36:55",
+      "Type": 2,
+      "Category": "Обмен валют",
+      "Amount": 150.0,
+      "Currency": 2,
+      "Note": "Отдано 2 452,50 PRB (ПМР) → получено 150,00 USD ($)",
+      "Shop": "",
+      "ExchangeFromCurrency": 0,
+      "ExchangeFromAmount": 2452.5
+    },
+    {
+      "Id": "64e97a7f-5318-49df-a03f-14f680f28b7b",
+      "Date": "2026-11-09T11:35:02",
+      "Type": 1,
+      "Category": "Продукты",
+      "Amount": 300.0,
+      "Currency": 0,
+      "Note": "",
+      "Shop": "Шериф"
+    },
+    {
+      "Id": "3c80f6d1-7531-4b85-b8aa-717351d5e7d1",
+      "Date": "2026-11-09T11:34:29",
+      "Type": 0,
+      "Category": "Зарплата",
+      "Amount": 4000.0,
+      "Currency": 0,
+      "Note": "универ",
+      "Shop": ""
+    },
+    {
+      "Id": "470fac11-177f-461c-aa66-1caffd2ac81d",
+      "Date": "2026-11-09T11:34:19",
+      "Type": 0,
+      "Category": "Зарплата",
+      "Amount": 3000.0,
+      "Currency": 0,
+      "Note": "ТТИиП",
+      "Shop": ""
+    },
+    {
+      "Id": "730d1668-cbd5-4d0f-815c-e4fa6b88b62f",
+      "Date": "2026-11-09T11:32:45",
+      "Type": 0,
+      "Category": "Зарплата",
+      "Amount": 5000.0,
+      "Currency": 0,
+      "Note": "профком",
+      "Shop": ""
+    }
+  ],
+  "Debts": [
+    {
+      "Id": "d009c572-2128-4b68-a9e2-24de7cd1730f",
+      "PersonName": "Минск",
+      "Amount": 64.0,
+      "Currency": 2,
+      "IsOwedToMe": false,
+      "IsPaid": true,
+      "CreatedDate": "2026-11-09T11:39:03",
+      "Note": ""
+    },
+    {
+      "Id": "a915bf62-5f71-4566-a959-e2f80f2d8947",
+      "PersonName": "",
+      "Amount": 0.0,
+      "Currency": 0,
+      "IsOwedToMe": false,
+      "IsPaid": false,
+      "CreatedDate": "2026-09-29T12:16:44",
+      "Note": ""
+    }
+  ],
+  "IsDarkTheme": true,
+  "ExpenseCategories": [
+    "Продукты",
+    "Транспорт",
+    "Жильё",
+    "Связь",
+    "Одежда",
+    "Развлечения",
+    "Здоровье",
+    "Другое",
+    "гаражи"
+  ],
+  "IncomeCategories": [
+    "Зарплата",
+    "Подарок",
+    "Подработка",
+    "Возврат",
+    "Другое",
+    "работа1"
+  ],
+  "ExchangeRates": {
+    "PRB_USD": 16.35,
+    "USD_PRB": 16.35,
+    "EUR_PRB": 18.75
+  }
+}
