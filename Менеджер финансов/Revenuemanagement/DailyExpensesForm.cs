@@ -22,6 +22,7 @@ namespace Revenuemanagement
 
             var root = new TableLayoutPanel
             {
+                Name = "dialogLayout",
                 Dock = DockStyle.Fill,
                 ColumnCount = 1,
                 RowCount = 3,

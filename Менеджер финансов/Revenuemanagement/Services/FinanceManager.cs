@@ -160,13 +160,16 @@ namespace Revenuemanagement.Services
             return tx;
         }
 
-        public Transaction AddExpense(string category, decimal amount, CurrencyType currency, string note = "", string shop = "")
+        public Transaction AddExpense(string category, decimal amount, CurrencyType currency, string note = "", string shop = "", decimal commissionPercent = 0m)
         {
             ValidateAmount(amount);
             ValidateCategory(category);
-            EnsureEnoughMoney(currency, amount);
+            ValidateCommissionPercent(commissionPercent);
+            decimal commissionAmount = Math.Round(amount * commissionPercent / 100m, 2, MidpointRounding.AwayFromZero);
+            decimal totalAmount = amount + commissionAmount;
+            EnsureEnoughMoney(currency, totalAmount);
 
-            _data.Balances.Add(currency, -amount);
+            _data.Balances.Add(currency, -totalAmount);
 
             string shopTrim = (shop ?? string.Empty).Trim();
             if (!string.Equals(category.Trim(), "Продукты", StringComparison.OrdinalIgnoreCase))
@@ -177,6 +180,7 @@ namespace Revenuemanagement.Services
                 Type = TransactionType.Expense,
                 Category = category.Trim(),
                 Amount = amount,
+                CommissionPercent = commissionPercent,
                 Currency = currency,
                 Note = note ?? string.Empty,
                 Shop = shopTrim,
@@ -354,7 +358,7 @@ namespace Revenuemanagement.Services
                     break;
 
                 case TransactionType.Expense:
-                    _data.Balances.Add(tx.Currency, tx.Amount);
+                    _data.Balances.Add(tx.Currency, tx.TotalAmount);
                     break;
 
                 case TransactionType.Exchange:
@@ -426,7 +430,8 @@ namespace Revenuemanagement.Services
             decimal newAmount,
             CurrencyType currency,
             string shop = "",
-            string note = null)
+            string note = null,
+            decimal newCommissionPercent = 0m)
         {
             Transaction tx = _data.Transactions.FirstOrDefault(t => t.Id == id);
             if (tx == null)
@@ -438,6 +443,10 @@ namespace Revenuemanagement.Services
 
             ValidateAmount(newAmount);
             ValidateCategory(category);
+            ValidateCommissionPercent(tx.Type == TransactionType.Expense ? newCommissionPercent : 0m);
+            decimal newTotalAmount = tx.Type == TransactionType.Expense
+                ? newAmount + Math.Round(newAmount * newCommissionPercent / 100m, 2, MidpointRounding.AwayFromZero)
+                : newAmount;
 
             // Сначала рассчитываем итоговые остатки и только потом меняем данные.
             // Так при ошибке баланс не остаётся в «полуизменённом» состоянии.
@@ -454,20 +463,20 @@ namespace Revenuemanagement.Services
             }
             else
             {
-                oldCurrencyAfterRollback += tx.Amount;
+                oldCurrencyAfterRollback += tx.TotalAmount;
             }
 
             if (currency == tx.Currency)
             {
                 decimal result = tx.Type == TransactionType.Income
                     ? oldCurrencyAfterRollback + newAmount
-                    : oldCurrencyAfterRollback - newAmount;
+                    : oldCurrencyAfterRollback - newTotalAmount;
 
                 if (result < 0)
                     throw new InvalidOperationException(
                         string.Format(
                             "Недостаточно средств. На балансе {0}: {1:N2}, нужно: {2:N2}.",
-                            CurrencyLabel(currency), oldCurrencyAfterRollback, newAmount));
+                            CurrencyLabel(currency), oldCurrencyAfterRollback, tx.Type == TransactionType.Expense ? newTotalAmount : newAmount));
 
                 _data.Balances.Set(currency, result);
             }
@@ -476,13 +485,13 @@ namespace Revenuemanagement.Services
                 decimal newCurrencyBalance = _data.Balances.Get(currency);
                 decimal newCurrencyResult = tx.Type == TransactionType.Income
                     ? newCurrencyBalance + newAmount
-                    : newCurrencyBalance - newAmount;
+                    : newCurrencyBalance - newTotalAmount;
 
                 if (newCurrencyResult < 0)
                     throw new InvalidOperationException(
                         string.Format(
                             "Недостаточно средств. На балансе {0}: {1:N2}, нужно: {2:N2}.",
-                            CurrencyLabel(currency), newCurrencyBalance, newAmount));
+                            CurrencyLabel(currency), newCurrencyBalance, tx.Type == TransactionType.Expense ? newTotalAmount : newAmount));
 
                 _data.Balances.Set(tx.Currency, oldCurrencyAfterRollback);
                 _data.Balances.Set(currency, newCurrencyResult);
@@ -490,6 +499,7 @@ namespace Revenuemanagement.Services
 
             tx.Category = category.Trim();
             tx.Amount = newAmount;
+            tx.CommissionPercent = tx.Type == TransactionType.Expense ? newCommissionPercent : 0m;
             tx.Currency = currency;
             tx.Note = note ?? tx.Note ?? string.Empty;
 
@@ -553,12 +563,12 @@ namespace Revenuemanagement.Services
                 .Select(g =>
                 {
                     var byCur = g.GroupBy(x => x.Currency)
-                        .Select(cg => string.Format("{0:N2} {1}", cg.Sum(x => x.Amount), CurrencyShort(cg.Key)));
+                        .Select(cg => string.Format("{0:N2} {1}", cg.Sum(x => x.TotalAmount), CurrencyShort(cg.Key)));
                     string parts = string.Join(", ", byCur);
                     return new DayExpenseTotal
                     {
                         Date = g.Key,
-                        TotalRubEquivalent = g.Where(x => x.Currency == CurrencyType.RUB).Sum(x => x.Amount),
+                        TotalRubEquivalent = g.Where(x => x.Currency == CurrencyType.RUB).Sum(x => x.TotalAmount),
                         Summary = string.Format("{0:dd.MM.yyyy} — потрачено: {1}", g.Key, parts)
                     };
                 })
@@ -589,7 +599,7 @@ namespace Revenuemanagement.Services
                     Category = multipleCurrencies
                         ? g.Key.Category + " · " + CurrencyShort(g.Key.Currency)
                         : g.Key.Category,
-                    Total = g.Sum(x => x.Amount)
+                    Total = g.Sum(x => x.TotalAmount)
                 })
                 .OrderByDescending(x => x.Total)
                 .ToList();
@@ -631,6 +641,12 @@ namespace Revenuemanagement.Services
         {
             if (amount <= 0)
                 throw new InvalidOperationException("Сумма должна быть больше нуля.");
+        }
+
+        private static void ValidateCommissionPercent(decimal commissionPercent)
+        {
+            if (commissionPercent < 0m || commissionPercent > 1000m)
+                throw new InvalidOperationException("Комиссия должна быть от 0 до 1000%.");
         }
 
         private static void ValidateCategory(string category)

@@ -1,13 +1,24 @@
 using System;
 using System.Drawing;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using Krypton.Toolkit;
 using Revenuemanagement.Models;
 
 namespace Revenuemanagement
 {
     public static class UiHelper
     {
+        private sealed class RoundedState
+        {
+            public int Radius;
+            public bool DrawBorder;
+        }
+
+        private static readonly ConditionalWeakTable<Control, RoundedState> RoundedControls =
+            new ConditionalWeakTable<Control, RoundedState>();
+
         public static readonly Font TitleFont = new Font("Segoe UI Semibold", 16f, FontStyle.Bold);
         public static readonly Font HeaderFont = new Font("Segoe UI Semibold", 13f, FontStyle.Bold);
         public static readonly Font BodyFont = new Font("Segoe UI", 11f);
@@ -29,16 +40,103 @@ namespace Revenuemanagement
 
         public static void StyleFlatButton(Button btn, Color back, Color fore)
         {
+            bool accent = IsAccentColor(back);
+            if (!accent)
+            {
+                back = Theme.IsDark ? Color.FromArgb(48, 52, 61) : Color.FromArgb(232, 236, 242);
+                fore = Theme.TextPrimary;
+            }
+
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
-            btn.FlatAppearance.MouseOverBackColor = Shift(back, 18);
-            btn.FlatAppearance.MouseDownBackColor = Shift(back, -18);
+            btn.FlatAppearance.MouseOverBackColor = Shift(back, Theme.IsDark ? 12 : -8);
+            btn.FlatAppearance.MouseDownBackColor = Shift(back, Theme.IsDark ? -8 : -16);
             btn.BackColor = back;
             btn.ForeColor = fore;
             btn.Font = BigButtonFont;
             btn.Cursor = Cursors.Hand;
             btn.TextAlign = ContentAlignment.MiddleLeft;
             btn.Padding = new Padding(16, 0, 8, 0);
+            btn.UseVisualStyleBackColor = false;
+            ApplyRoundedCorners(btn, 9, false);
+        }
+
+        /// <summary>Скругляет контрол и при необходимости рисует тонкую рамку.</summary>
+        public static void ApplyRoundedCorners(Control control, int radius, bool drawBorder = true)
+        {
+            if (control == null)
+                return;
+
+            RoundedState state = RoundedControls.GetValue(control, key =>
+            {
+                var created = new RoundedState();
+                key.Resize += (s, e) => UpdateRoundedRegion(key, created);
+                key.Paint += (s, e) => DrawRoundedBorder(key, e, created);
+                return created;
+            });
+
+            state.Radius = Math.Max(1, radius);
+            state.DrawBorder = drawBorder;
+            UpdateRoundedRegion(control, state);
+        }
+
+        private static void UpdateRoundedRegion(Control control, RoundedState state)
+        {
+            if (control.Width < 2 || control.Height < 2)
+                return;
+
+            using (var path = CreateRoundedPath(new Rectangle(0, 0, control.Width, control.Height), state.Radius))
+            {
+                Region previous = control.Region;
+                control.Region = new Region(path);
+                if (previous != null)
+                    previous.Dispose();
+            }
+        }
+
+        private static void DrawRoundedBorder(Control control, PaintEventArgs e, RoundedState state)
+        {
+            if (!state.DrawBorder || control.Width < 2 || control.Height < 2)
+                return;
+
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            var bounds = new RectangleF(0.5f, 0.5f, control.Width - 1f, control.Height - 1f);
+            using (var path = CreateRoundedPath(Rectangle.Round(bounds), state.Radius))
+            using (var pen = new Pen(Theme.Border, 1f))
+                e.Graphics.DrawPath(pen, path);
+        }
+
+        private static System.Drawing.Drawing2D.GraphicsPath CreateRoundedPath(Rectangle bounds, int radius)
+        {
+            var path = new System.Drawing.Drawing2D.GraphicsPath();
+            if (bounds.Width < 2 || bounds.Height < 2)
+            {
+                path.AddRectangle(bounds);
+                return path;
+            }
+
+            int diameter = Math.Min(radius * 2, Math.Min(bounds.Width, bounds.Height));
+            var arc = new Rectangle(bounds.Left, bounds.Top, diameter, diameter);
+            path.AddArc(arc, 180, 90);
+            arc.X = bounds.Right - diameter;
+            path.AddArc(arc, 270, 90);
+            arc.Y = bounds.Bottom - diameter;
+            path.AddArc(arc, 0, 90);
+            arc.X = bounds.Left;
+            path.AddArc(arc, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+
+        private static bool IsAccentColor(Color color)
+        {
+            return ColorsClose(color, Theme.AccentGreen) || ColorsClose(color, Theme.AccentRed) ||
+                   ColorsClose(color, Theme.AccentBlue) || ColorsClose(color, Theme.AccentGold);
+        }
+
+        private static bool ColorsClose(Color a, Color b)
+        {
+            return Math.Abs(a.R - b.R) < 8 && Math.Abs(a.G - b.G) < 8 && Math.Abs(a.B - b.B) < 8;
         }
 
         private static Color Shift(Color color, int delta)
@@ -64,7 +162,28 @@ namespace Revenuemanagement
             combo.SelectedIndex = Enum.IsDefined(typeof(CurrencyType), selected) ? (int)selected : 0;
         }
 
+        public static void FillCurrencyCombo(KryptonComboBox combo, CurrencyType selected = CurrencyType.PRB)
+        {
+            combo.DropDownStyle = ComboBoxStyle.DropDownList;
+            combo.Font = BodyFont;
+            combo.Items.Clear();
+            combo.Items.Add(new CurrencyItem(CurrencyType.PRB, "Рубли ПМР (PRB)"));
+            combo.Items.Add(new CurrencyItem(CurrencyType.RUB, "Рубли РФ (RUB)"));
+            combo.Items.Add(new CurrencyItem(CurrencyType.USD, "Доллары США (USD)"));
+            combo.Items.Add(new CurrencyItem(CurrencyType.EUR, "Евро (EUR)"));
+            combo.Items.Add(new CurrencyItem(CurrencyType.MDL, "Молдавские леи (MDL)"));
+            combo.DisplayMember = "Display";
+            combo.ValueMember = "Value";
+            combo.SelectedIndex = Enum.IsDefined(typeof(CurrencyType), selected) ? (int)selected : 0;
+        }
+
         public static CurrencyType GetSelectedCurrency(ComboBox combo)
+        {
+            var item = combo.SelectedItem as CurrencyItem;
+            return item != null ? item.Value : CurrencyType.PRB;
+        }
+
+        public static CurrencyType GetSelectedCurrency(KryptonComboBox combo)
         {
             var item = combo.SelectedItem as CurrencyItem;
             return item != null ? item.Value : CurrencyType.PRB;

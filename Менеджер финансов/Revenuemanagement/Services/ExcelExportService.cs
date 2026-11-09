@@ -18,14 +18,14 @@ namespace Revenuemanagement
             {
                 var sheet = workbook.Worksheets.Add("Доходы и расходы");
                 sheet.Cell(1, 1).Value = "Доходы и расходы — " + periodTitle;
-                sheet.Range(1, 1, 1, 6).Merge();
+                sheet.Range(1, 1, 1, 9).Merge();
                 sheet.Cell(1, 1).Style.Font.Bold = true;
                 sheet.Cell(1, 1).Style.Font.FontSize = 16;
                 sheet.Cell(1, 1).Style.Font.FontColor = XLColor.White;
                 sheet.Cell(1, 1).Style.Fill.BackgroundColor = XLColor.FromHtml("#243B55");
                 sheet.Row(1).Height = 30;
 
-                string[] headers = { "Дата", "Тип", "Категория", "Сумма", "Валюта", "Заметка" };
+                string[] headers = { "Дата", "Тип", "Категория", "Сумма", "Комиссия %", "Комиссия", "Списано / получено", "Валюта", "Заметка" };
                 for (int c = 0; c < headers.Length; c++) sheet.Cell(3, c + 1).Value = headers[c];
                 var header = sheet.Range(3, 1, 3, headers.Length);
                 header.Style.Font.Bold = true;
@@ -44,9 +44,18 @@ namespace Revenuemanagement
                     sheet.Cell(row, 3).Value = tx.CategoryDisplay;
                     sheet.Cell(row, 4).Value = tx.Amount;
                     sheet.Cell(row, 4).Style.NumberFormat.Format = "#,##0.00";
-                    sheet.Cell(row, 5).Value = FinanceManager.CurrencyShort(tx.Currency);
-                    sheet.Cell(row, 6).Value = tx.Note ?? string.Empty;
-                    var line = sheet.Range(row, 1, row, 6);
+                    if (tx.Type == TransactionType.Expense && tx.CommissionPercent > 0m)
+                    {
+                        sheet.Cell(row, 5).Value = tx.CommissionPercent / 100m;
+                        sheet.Cell(row, 5).Style.NumberFormat.Format = "0.##%";
+                        sheet.Cell(row, 6).Value = tx.CommissionAmount;
+                    }
+                    sheet.Cell(row, 6).Style.NumberFormat.Format = "#,##0.00";
+                    sheet.Cell(row, 7).Value = tx.Type == TransactionType.Expense ? tx.TotalAmount : tx.Amount;
+                    sheet.Cell(row, 7).Style.NumberFormat.Format = "#,##0.00";
+                    sheet.Cell(row, 8).Value = FinanceManager.CurrencyShort(tx.Currency);
+                    sheet.Cell(row, 9).Value = tx.Note ?? string.Empty;
+                    var line = sheet.Range(row, 1, row, 9);
                     line.Style.Fill.BackgroundColor = XLColor.FromHtml(tx.Type == TransactionType.Income ? "#E7F5EC" : "#FCEAEA");
                     line.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                     line.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
@@ -68,7 +77,7 @@ namespace Revenuemanagement
                 foreach (var currency in Enum.GetValues(typeof(CurrencyType)).Cast<CurrencyType>())
                 {
                     decimal income = rows.Where(t => t.Currency == currency && t.Type == TransactionType.Income).Sum(t => t.Amount);
-                    decimal expense = rows.Where(t => t.Currency == currency && t.Type == TransactionType.Expense).Sum(t => t.Amount);
+                    decimal expense = rows.Where(t => t.Currency == currency && t.Type == TransactionType.Expense).Sum(t => t.TotalAmount);
                     if (income == 0m && expense == 0m) continue;
                     sheet.Cell(row, 1).Value = FinanceManager.CurrencyShort(currency);
                     sheet.Cell(row, 2).Value = income;
@@ -80,10 +89,10 @@ namespace Revenuemanagement
                     row++;
                 }
 
-                sheet.Columns(1, 6).AdjustToContents();
+                sheet.Columns(1, 9).AdjustToContents();
                 sheet.Column(1).Width = Math.Min(22, Math.Max(18, sheet.Column(1).Width));
                 sheet.Column(3).Width = Math.Min(36, Math.Max(16, sheet.Column(3).Width));
-                sheet.Column(6).Width = Math.Min(50, Math.Max(18, sheet.Column(6).Width));
+                sheet.Column(9).Width = Math.Min(50, Math.Max(18, sheet.Column(9).Width));
                 sheet.SheetView.FreezeRows(3);
                 workbook.SaveAs(path);
             }

@@ -16,7 +16,7 @@ namespace Revenuemanagement.Models
         public List<Debt> Debts { get; set; } = new List<Debt>();
 
         /// <summary>true — тёмная тема интерфейса.</summary>
-        public bool IsDarkTheme { get; set; }
+        public bool IsDarkTheme { get; set; } = true;
 
         /// <summary>Категории расходов (редактируются пользователем).</summary>
         public List<string> ExpenseCategories { get; set; } = new List<string>();

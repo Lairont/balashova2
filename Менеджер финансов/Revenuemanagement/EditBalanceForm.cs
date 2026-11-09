@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Krypton.Toolkit;
 using Revenuemanagement.Services;
 
 namespace Revenuemanagement
@@ -34,6 +35,7 @@ namespace Revenuemanagement
 
             var layout = new FlowLayoutPanel
             {
+                Name = "dialogLayout",
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
                 FlowDirection = FlowDirection.TopDown,

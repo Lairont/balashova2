@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Krypton.Toolkit;
 using Revenuemanagement.Models;
 using Revenuemanagement.Services;
 
@@ -20,8 +21,8 @@ namespace Revenuemanagement
         private DataGridView grid;
         private TextBox txtPerson;
         private TextBox txtAmount;
-        private ComboBox cmbCurrency;
-        private ComboBox cmbDirection;
+        private KryptonComboBox cmbCurrency;
+        private KryptonComboBox cmbDirection;
         private DateTimePicker dtpDue;
         private CheckBox chkHasDue;
         private Button btnAdd;
@@ -113,7 +114,7 @@ namespace Revenuemanagement
             txtAmount = MakeTextBox(230, 62, 140);
 
             var tipCur = MakeFieldLabel("Валюта", 390, 42);
-            cmbCurrency = new ComboBox
+            cmbCurrency = new KryptonComboBox
             {
                 Location = new Point(390, 62),
                 Size = new Size(160, 28),
@@ -123,7 +124,7 @@ namespace Revenuemanagement
             UiHelper.FillCurrencyCombo(cmbCurrency);
 
             var tipDir = MakeFieldLabel("Кто кому", 570, 42);
-            cmbDirection = new ComboBox
+            cmbDirection = new KryptonComboBox
             {
                 Location = new Point(570, 62),
                 Size = new Size(218, 28),
@@ -248,6 +249,13 @@ namespace Revenuemanagement
             HideColumn("IsPaid");
             HideColumn("IsOverdue");
 
+            SetHeader("Человек", "Человек");
+            SetHeader("Направление", "Кто кому");
+            SetHeader("Сумма", "Сумма");
+            SetHeader("Валюта", "Валюта");
+            SetHeader("Статус", "Состояние");
+            SetHeader("Дата", "Добавлен");
+
             if (grid.Columns["Погасить_до"] != null)
                 grid.Columns["Погасить_до"].HeaderText = "Погасить до";
 
@@ -275,6 +283,12 @@ namespace Revenuemanagement
         {
             if (grid.Columns[name] != null)
                 grid.Columns[name].Visible = false;
+        }
+
+        private void SetHeader(string name, string title)
+        {
+            if (grid.Columns[name] != null)
+                grid.Columns[name].HeaderText = title;
         }
 
         private void SetFillWeight(string name, float weight)

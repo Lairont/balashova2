@@ -19,6 +19,16 @@ namespace Revenuemanagement.Models
 
         public decimal Amount { get; set; }
 
+        /// <summary>Комиссия в процентах от исходной суммы расхода.</summary>
+        public decimal CommissionPercent { get; set; }
+
+        [JsonIgnore]
+        public decimal CommissionAmount => Math.Round(Amount * CommissionPercent / 100m, 2, MidpointRounding.AwayFromZero);
+
+        /// <summary>Фактически списанная сумма с учётом комиссии.</summary>
+        [JsonIgnore]
+        public decimal TotalAmount => Amount + CommissionAmount;
+
         public CurrencyType Currency { get; set; }
 
         /// <summary>Дополнительный текст (например, детали обмена).</summary>

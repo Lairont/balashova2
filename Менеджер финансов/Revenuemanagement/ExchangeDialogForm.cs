@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Krypton.Toolkit;
 using Revenuemanagement.Models;
 using Revenuemanagement.Services;
 
@@ -13,8 +14,8 @@ namespace Revenuemanagement
     public class ExchangeDialogForm : Form
     {
         private readonly FinanceManager _manager;
-        private ComboBox cmbFrom;
-        private ComboBox cmbTo;
+        private KryptonComboBox cmbFrom;
+        private KryptonComboBox cmbTo;
         private Label lblRateHint;
         private TextBox txtRate;
         private TextBox txtAmount;
@@ -46,6 +47,7 @@ namespace Revenuemanagement
 
             var layout = new FlowLayoutPanel
             {
+                Name = "dialogLayout",
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
                 FlowDirection = FlowDirection.TopDown,
@@ -67,7 +69,7 @@ namespace Revenuemanagement
                 "Введите сумму, которую хотите получить. Например, 15 USD — программа рассчитает, сколько PRB списать по курсу. Последний курс пары сохранится для следующего обмена.",
                 632);
 
-            cmbFrom = new ComboBox
+            cmbFrom = new KryptonComboBox
             {
                 Width = 306,
                 DropDownStyle = ComboBoxStyle.DropDownList,
@@ -75,7 +77,7 @@ namespace Revenuemanagement
             };
             UiHelper.FillCurrencyCombo(cmbFrom, CurrencyType.PRB);
 
-            cmbTo = new ComboBox
+            cmbTo = new KryptonComboBox
             {
                 Width = 306,
                 DropDownStyle = ComboBoxStyle.DropDownList,
@@ -127,6 +129,7 @@ namespace Revenuemanagement
             // Блок результата
             var resultPanel = new Panel
             {
+                Name = "cardResult",
                 Width = 632,
                 Height = 94,
                 Padding = new Padding(16, 12, 16, 12),

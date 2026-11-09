@@ -46,8 +46,8 @@
             this.panelFilter = new System.Windows.Forms.TableLayoutPanel();
             this.lblHistoryTitle = new System.Windows.Forms.Label();
             this.filterFlow = new System.Windows.Forms.FlowLayoutPanel();
-            this.cmbPeriod = new System.Windows.Forms.ComboBox();
-            this.cmbTypeFilter = new System.Windows.Forms.ComboBox();
+            this.cmbPeriod = new Krypton.Toolkit.KryptonComboBox();
+            this.cmbTypeFilter = new Krypton.Toolkit.KryptonComboBox();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnDailyExpenses = new System.Windows.Forms.Button();
             this.btnPrintExpenses = new System.Windows.Forms.Button();
@@ -815,8 +815,8 @@
         private System.Windows.Forms.TableLayoutPanel panelFilter;
         private System.Windows.Forms.Label lblHistoryTitle;
         private System.Windows.Forms.FlowLayoutPanel filterFlow;
-        private System.Windows.Forms.ComboBox cmbPeriod;
-        private System.Windows.Forms.ComboBox cmbTypeFilter;
+        private Krypton.Toolkit.KryptonComboBox cmbPeriod;
+        private Krypton.Toolkit.KryptonComboBox cmbTypeFilter;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnDailyExpenses;
         private System.Windows.Forms.Button btnPrintExpenses;

@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Krypton.Toolkit;
 using Revenuemanagement.Models;
 using Revenuemanagement.Services;
 
@@ -13,11 +14,13 @@ namespace Revenuemanagement
         private readonly FinanceManager _manager;
         private readonly Transaction _tx;
 
-        private ComboBox cmbCategory;
-        private ComboBox cmbShop;
+        private KryptonComboBox cmbCategory;
+        private KryptonComboBox cmbShop;
         private Control shopSection;
         private TextBox txtAmount;
-        private ComboBox cmbCurrency;
+        private TextBox txtCommission;
+        private Label lblExpenseTotal;
+        private KryptonComboBox cmbCurrency;
         private TextBox txtNote;
         private ToolTip _toolTip;
 
@@ -37,7 +40,7 @@ namespace Revenuemanagement
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            ClientSize = new Size(560, IsExpense ? 560 : 500);
+            ClientSize = new Size(560, IsExpense ? 650 : 500);
             MinimumSize = Size;
             Padding = new Padding(32, 24, 32, 24);
             BackColor = Theme.BgMain;
@@ -45,6 +48,7 @@ namespace Revenuemanagement
 
             var layout = new FlowLayoutPanel
             {
+                Name = "dialogLayout",
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
                 FlowDirection = FlowDirection.TopDown,
@@ -66,7 +70,7 @@ namespace Revenuemanagement
                 "Исправьте категорию, сумму или заметку. Баланс пересчитается автоматически.",
                 496);
 
-            cmbCategory = new ComboBox
+            cmbCategory = new KryptonComboBox
             {
                 Width = 430,
                 DropDownStyle = ComboBoxStyle.DropDownList,
@@ -101,7 +105,7 @@ namespace Revenuemanagement
             categoryInput.Controls.Add(cmbCategory);
             categoryInput.Controls.Add(addCategory);
 
-            cmbShop = new ComboBox
+            cmbShop = new KryptonComboBox
             {
                 Width = 496,
                 DropDownStyle = ComboBoxStyle.DropDownList,
@@ -121,7 +125,7 @@ namespace Revenuemanagement
                 TextAlign = HorizontalAlignment.Right
             };
 
-            cmbCurrency = new ComboBox
+            cmbCurrency = new KryptonComboBox
             {
                 Width = 236,
                 Font = UiHelper.BodyFont,
@@ -137,10 +141,32 @@ namespace Revenuemanagement
                 Margin = new Padding(0, 0, 0, 18),
                 Padding = new Padding(0, 0, 0, 5)
             };
-            var amountWrap = UiHelper.CreateFieldSection("Сумма", txtAmount);
+            var amountWrap = UiHelper.CreateFieldSection(IsExpense ? "Сумма покупки" : "Сумма дохода", txtAmount);
             amountWrap.Margin = new Padding(0, 0, 20, 0);
             amountSection.Controls.Add(amountWrap);
             amountSection.Controls.Add(UiHelper.CreateFieldSection("Валюта", cmbCurrency));
+
+            Control commissionSection = null;
+            if (IsExpense)
+            {
+                txtCommission = new TextBox
+                {
+                    Width = 180,
+                    Font = UiHelper.BodyFont,
+                    Text = _tx.CommissionPercent > 0m ? _tx.CommissionPercent.ToString("0.##") : string.Empty
+                };
+                commissionSection = UiHelper.CreateFieldSection("Комиссия, % (необязательно)", txtCommission, 8);
+                lblExpenseTotal = new Label
+                {
+                    AutoSize = true,
+                    Font = UiHelper.HeaderFont,
+                    ForeColor = Theme.AccentRed,
+                    Margin = new Padding(0, 0, 0, 16)
+                };
+                txtAmount.TextChanged += (s, e) => UpdateExpenseTotalPreview();
+                txtCommission.TextChanged += (s, e) => UpdateExpenseTotalPreview();
+                cmbCurrency.SelectedIndexChanged += (s, e) => UpdateExpenseTotalPreview();
+            }
 
             txtNote = new TextBox
             {
@@ -193,6 +219,12 @@ namespace Revenuemanagement
             layout.Controls.Add(UiHelper.CreateFieldSection("Категория", categoryInput, 18));
             layout.Controls.Add(shopSection);
             layout.Controls.Add(amountSection);
+            if (IsExpense)
+            {
+                layout.Controls.Add(UiHelper.CreateHintLabel("Оставьте пустым, если комиссии нет.", 496));
+                layout.Controls.Add(commissionSection);
+                layout.Controls.Add(lblExpenseTotal);
+            }
             layout.Controls.Add(UiHelper.CreateFieldSection("Заметка", txtNote, 0));
             layout.Controls.Add(buttons);
             Controls.Add(layout);
@@ -202,6 +234,8 @@ namespace Revenuemanagement
 
             Theme.ApplyTo(this);
             UpdateShopVisibility();
+            if (IsExpense)
+                UpdateExpenseTotalPreview();
 
             Shown += (s, e) =>
             {
@@ -274,6 +308,11 @@ namespace Revenuemanagement
                 if (!UiHelper.TryParseAmount(txtAmount.Text, out decimal amount))
                     throw new InvalidOperationException("Введите сумму больше нуля.");
 
+                decimal commissionPercent = 0m;
+                if (IsExpense && !string.IsNullOrWhiteSpace(txtCommission.Text) &&
+                    !UiHelper.TryParseNonNegativeAmount(txtCommission.Text, out commissionPercent))
+                    throw new InvalidOperationException("Введите комиссию в процентах, например 5.");
+
                 string shop = shopSection.Visible ? cmbShop.Text : string.Empty;
 
                 _manager.EditTransaction(
@@ -282,7 +321,8 @@ namespace Revenuemanagement
                     amount,
                     UiHelper.GetSelectedCurrency(cmbCurrency),
                     shop,
-                    txtNote.Text.Trim());
+                    txtNote.Text.Trim(),
+                    commissionPercent);
 
                 DialogResult = DialogResult.OK;
             }
@@ -290,6 +330,29 @@ namespace Revenuemanagement
             {
                 UiHelper.ShowError(this, ex.Message);
             }
+        }
+
+        private void UpdateExpenseTotalPreview()
+        {
+            if (lblExpenseTotal == null)
+                return;
+            if (!UiHelper.TryParseAmount(txtAmount.Text, out decimal amount))
+            {
+                lblExpenseTotal.Text = "К списанию: введите сумму";
+                return;
+            }
+
+            decimal commissionPercent = 0m;
+            if (!string.IsNullOrWhiteSpace(txtCommission.Text) &&
+                !UiHelper.TryParseNonNegativeAmount(txtCommission.Text, out commissionPercent))
+            {
+                lblExpenseTotal.Text = "Проверьте комиссию";
+                return;
+            }
+
+            decimal total = amount + Math.Round(amount * commissionPercent / 100m, 2, MidpointRounding.AwayFromZero);
+            lblExpenseTotal.Text = string.Format("К списанию: {0:N2} {1}",
+                total, FinanceManager.CurrencyShort(UiHelper.GetSelectedCurrency(cmbCurrency)));
         }
     }
 }

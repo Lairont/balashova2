@@ -91,6 +91,7 @@ namespace Revenuemanagement
             }
 
             Theme.Apply(_manager.IsDarkTheme);
+            Program.ApplyKryptonTheme(_manager.IsDarkTheme);
             ApplyThemeToForm();
             AdjustFilterBarHeight();
             ConfigureGridWrap();
@@ -154,6 +155,10 @@ namespace Revenuemanagement
             panelFilter.BackColor = Theme.BgMain;
             filterFlow.BackColor = Theme.BgMain;
             panelContent.BackColor = Theme.BgMain;
+            panelContent.ColumnStyles[0].SizeType = SizeType.Percent;
+            panelContent.ColumnStyles[0].Width = 76f;
+            panelContent.ColumnStyles[1].SizeType = SizeType.Percent;
+            panelContent.ColumnStyles[1].Width = 24f;
             panelGridHost.BackColor = Theme.BgGrid;
             panelPieHost.BackColor = Theme.BgMain;
             pieExpenses.BackColor = Theme.BgCard;
@@ -168,6 +173,14 @@ namespace Revenuemanagement
 
             lblWelcome.Font = UiHelper.TitleFont;
             lblHistoryTitle.Font = UiHelper.HeaderFont;
+            lblPrbTitle.Font = new Font("Segoe UI Semibold", 10f, FontStyle.Bold);
+            lblRubTitle.Font = new Font("Segoe UI Semibold", 10f, FontStyle.Bold);
+            lblUsdTitle.Font = new Font("Segoe UI Semibold", 10f, FontStyle.Bold);
+            lblEurTitle.Font = new Font("Segoe UI Semibold", 10f, FontStyle.Bold);
+            lblPrbTitle.AutoEllipsis = true;
+            lblRubTitle.AutoEllipsis = true;
+            lblUsdTitle.AutoEllipsis = true;
+            lblEurTitle.AutoEllipsis = true;
 
             StyleSidebarButton(btnIncome, "➕  Добавить доход");
             StyleSidebarButton(btnExpense, "➖  Добавить расход");
@@ -180,6 +193,12 @@ namespace Revenuemanagement
             cardRub.BackColor = Theme.BgCardRub;
             cardUsd.BackColor = Theme.BgCardUsd;
             cardEur.BackColor = Theme.BgCardEur;
+            UiHelper.ApplyRoundedCorners(cardPrb, 14);
+            UiHelper.ApplyRoundedCorners(cardRub, 14);
+            UiHelper.ApplyRoundedCorners(cardUsd, 14);
+            UiHelper.ApplyRoundedCorners(cardEur, 14);
+            UiHelper.ApplyRoundedCorners(panelGridHost, 14);
+            UiHelper.ApplyRoundedCorners(pieExpenses, 14);
 
             lblPrbTitle.ForeColor = Theme.AccentGreen;
             lblRubTitle.ForeColor = Theme.AccentBlue;
@@ -191,14 +210,19 @@ namespace Revenuemanagement
             lblEurAmount.ForeColor = Theme.TextPrimary;
             if (_cardMdl != null)
             {
-                _cardMdl.BackColor = Theme.IsDark ? Color.FromArgb(50, 46, 38) : Color.FromArgb(250, 241, 224);
+                var mdlTitle = (Label)_cardMdl.Controls["lblMdlTitle"];
+                _cardMdl.BackColor = Theme.BgCardMdl;
+                UiHelper.ApplyRoundedCorners(_cardMdl, 14);
+                mdlTitle.Font = new Font("Segoe UI Semibold", 10f, FontStyle.Bold);
+                mdlTitle.AutoEllipsis = true;
                 _lblMdlAmount.ForeColor = Theme.TextPrimary;
-                _cardMdl.Controls["lblMdlTitle"].ForeColor = Theme.AccentGold;
+                mdlTitle.ForeColor = Theme.AccentBlue;
             }
             lblPrbAmount.Font = UiHelper.CardAmountFont;
             lblRubAmount.Font = UiHelper.CardAmountFont;
             lblUsdAmount.Font = UiHelper.CardAmountFont;
             lblEurAmount.Font = UiHelper.CardAmountFont;
+            panelGridHost.Padding = new Padding(1);
 
             gridHistory.EnableHeadersVisualStyles = false;
             gridHistory.BackgroundColor = Theme.BgGrid;
@@ -207,13 +231,18 @@ namespace Revenuemanagement
             gridHistory.DefaultCellStyle.SelectionBackColor = Theme.SelectionBack;
             gridHistory.DefaultCellStyle.SelectionForeColor = Theme.TextPrimary;
             gridHistory.DefaultCellStyle.Font = UiHelper.GridFont;
+            gridHistory.DefaultCellStyle.Padding = new Padding(8, 0, 8, 0);
             gridHistory.AlternatingRowsDefaultCellStyle.BackColor = Theme.BgGridAlt;
             gridHistory.AlternatingRowsDefaultCellStyle.ForeColor = Theme.TextPrimary;
             gridHistory.ColumnHeadersDefaultCellStyle.BackColor = Theme.BgHeader;
             gridHistory.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             gridHistory.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10.5f, FontStyle.Bold);
-            gridHistory.ColumnHeadersHeight = 38;
-            gridHistory.GridColor = Theme.IsDark ? Color.FromArgb(55, 60, 70) : Color.FromArgb(220, 225, 230);
+            gridHistory.ColumnHeadersDefaultCellStyle.Padding = new Padding(10, 0, 8, 0);
+            gridHistory.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            gridHistory.ColumnHeadersHeight = 42;
+            gridHistory.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            gridHistory.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            gridHistory.GridColor = Theme.Border;
 
             lblEmptyState.BackColor = Theme.BgGrid;
             lblEmptyState.ForeColor = Theme.TextMuted;
@@ -251,6 +280,7 @@ namespace Revenuemanagement
             btn.Text = text;
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
+            btn.UseVisualStyleBackColor = false;
             btn.FlatAppearance.MouseOverBackColor = Theme.IsDark
                 ? Color.FromArgb(40, 50, 70)
                 : Color.FromArgb(50, 80, 115);
@@ -263,6 +293,7 @@ namespace Revenuemanagement
             btn.TextAlign = ContentAlignment.MiddleLeft;
             btn.Padding = new Padding(12, 0, 4, 0);
             btn.Cursor = Cursors.Hand;
+            UiHelper.ApplyRoundedCorners(btn, 9, false);
         }
 
         private HistoryPeriod CurrentPeriod
@@ -373,15 +404,17 @@ namespace Revenuemanagement
                 {
                     Id = t.Id,
                     Type = t.Type,
-                    Amount = t.Amount,
+                    Amount = t.Type == TransactionType.Expense ? t.TotalAmount : t.Amount,
                     Currency = t.Currency,
                     Дата = t.Date.ToString("dd.MM.yyyy HH:mm"),
                     Тип = t.TypeDisplay,
                     Категория = t.CategoryDisplay,
                     Магазин = t.Shop ?? string.Empty,
-                    Сумма = t.Amount > 0 ? t.Amount.ToString("N2") : "—",
+                    Сумма = (t.Type == TransactionType.Expense ? t.TotalAmount : t.Amount) > 0
+                        ? (t.Type == TransactionType.Expense ? t.TotalAmount : t.Amount).ToString("N2")
+                        : "—",
                     Валюта = t.Amount > 0 ? t.CurrencyDisplay : "",
-                    Заметка = t.Note
+                    Заметка = FormatTransactionNote(t)
                 })
                 .ToList();
 
@@ -429,6 +462,18 @@ namespace Revenuemanagement
 
             lblEmptyState.Visible = empty;
             gridHistory.Visible = !empty;
+        }
+
+        private static string FormatTransactionNote(Transaction transaction)
+        {
+            string note = transaction.Note ?? string.Empty;
+            if (transaction.Type != TransactionType.Expense || transaction.CommissionPercent <= 0m)
+                return note;
+
+            string commission = string.Format("Комиссия {0:0.##}%: {1:N2} {2}",
+                transaction.CommissionPercent, transaction.CommissionAmount,
+                FinanceManager.CurrencyShort(transaction.Currency));
+            return string.IsNullOrWhiteSpace(note) ? commission : note + " · " + commission;
         }
 
         private void GridHistory_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -791,21 +836,60 @@ namespace Revenuemanagement
             filterFlow.AutoSize = false;
             filterFlow.Dock = DockStyle.Top;
 
-            filterFlow.Controls.Add(UiHelper.CreateInlineField("Период:", cmbPeriod));
-            filterFlow.Controls.Add(UiHelper.CreateInlineField("День:", _dayFilter));
-            filterFlow.Controls.Add(UiHelper.CreateInlineField("Показать:", cmbTypeFilter));
-            filterFlow.Controls.Add(UiHelper.CreateInlineField("Поиск:", txtSearch));
-            filterFlow.Controls.Add(btnDailyExpenses);
-            filterFlow.Controls.Add(btnPrintExpenses);
-            _btnExportExcel = new Button { Name = "btnExportExcel", Text = "📊  Экспорт Excel", Size = new Size(190, 38), Margin = new Padding(0, 0, 0, 8) };
+            filterFlow.FlowDirection = FlowDirection.TopDown;
+            filterFlow.WrapContents = false;
+            filterFlow.Padding = Padding.Empty;
+
+            var filtersRow = new FlowLayoutPanel
+            {
+                Name = "filtersRow",
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = true,
+                Margin = Padding.Empty,
+                Padding = Padding.Empty
+            };
+            filtersRow.Controls.Add(UiHelper.CreateInlineField("Период:", cmbPeriod));
+            filtersRow.Controls.Add(UiHelper.CreateInlineField("День:", _dayFilter));
+            filtersRow.Controls.Add(UiHelper.CreateInlineField("Показать:", cmbTypeFilter));
+            filtersRow.Controls.Add(UiHelper.CreateInlineField("Поиск:", txtSearch));
+
+            var actionsRow = new FlowLayoutPanel
+            {
+                Name = "historyActionsRow",
+                Height = 46,
+                AutoSize = false,
+                FlowDirection = FlowDirection.RightToLeft,
+                WrapContents = false,
+                Margin = new Padding(0, 8, 0, 0),
+                Padding = Padding.Empty
+            };
+            btnDailyExpenses.Size = new Size(195, 40);
+            btnPrintExpenses.Size = new Size(160, 40);
+            btnDailyExpenses.Margin = new Padding(0, 0, 10, 0);
+            btnPrintExpenses.Margin = new Padding(0, 0, 10, 0);
+            actionsRow.Controls.Add(btnDailyExpenses);
+            actionsRow.Controls.Add(btnPrintExpenses);
+            _btnExportExcel = new Button { Name = "btnExportExcel", Text = "📊  Экспорт в Excel", Size = new Size(190, 40), Margin = new Padding(0, 0, 10, 0) };
             UiHelper.StyleFlatButton(_btnExportExcel, Theme.AccentGreen, Color.White);
             _btnExportExcel.TextAlign = ContentAlignment.MiddleCenter;
             _btnExportExcel.Padding = Padding.Empty;
             _btnExportExcel.Click += BtnExportExcel_Click;
-            filterFlow.Controls.Add(_btnExportExcel);
+            actionsRow.Controls.Add(_btnExportExcel);
+
+            filterFlow.Controls.Add(filtersRow);
+            filterFlow.Controls.Add(actionsRow);
+            filtersRow.Width = filterFlow.ClientSize.Width;
+            actionsRow.Width = filterFlow.ClientSize.Width;
+            filterFlow.Resize += (s, e) =>
+            {
+                filtersRow.Width = filterFlow.ClientSize.Width;
+                actionsRow.Width = filterFlow.ClientSize.Width;
+                AdjustFilterBarHeight();
+            };
 
             filterFlow.ResumeLayout();
-            filterFlow.Resize += (s, e) => AdjustFilterBarHeight();
             _filterBuilt = true;
 
             AdjustFilterBarHeight();
@@ -915,12 +999,13 @@ namespace Revenuemanagement
             cardsLayout.ColumnCount = 5;
             cardsLayout.ColumnStyles.Clear();
             for (int i = 0; i < 5; i++) cardsLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20f));
-            _cardMdl = new Panel { Name = "cardMdl", Dock = DockStyle.Fill, Margin = new Padding(0), Padding = new Padding(12, 12, 10, 12), BackColor = Color.FromArgb(250, 241, 224) };
-            var title = new Label { Name = "lblMdlTitle", Text = "Молдавские леи (MDL)", Dock = DockStyle.Top, Height = 28, Font = new Font("Segoe UI Semibold", 10f, FontStyle.Bold), ForeColor = Theme.AccentGold, TextAlign = ContentAlignment.MiddleLeft };
+            _cardMdl = new Panel { Name = "cardMdl", Dock = DockStyle.Fill, Margin = new Padding(0), Padding = new Padding(12, 12, 10, 12), BackColor = Theme.BgCardMdl };
+            var title = new Label { Name = "lblMdlTitle", Text = "Молдавские леи (MDL)", Dock = DockStyle.Top, Height = 28, Font = new Font("Segoe UI Semibold", 10f, FontStyle.Bold), ForeColor = Theme.AccentBlue, TextAlign = ContentAlignment.MiddleLeft };
             _lblMdlAmount = new Label { Name = "lblMdlAmount", Text = "0.00", Dock = DockStyle.Fill, Font = UiHelper.CardAmountFont, ForeColor = Theme.TextPrimary, AutoEllipsis = true, TextAlign = ContentAlignment.MiddleLeft };
             _cardMdl.Controls.Add(_lblMdlAmount);
             _cardMdl.Controls.Add(title);
             cardsLayout.Controls.Add(_cardMdl, 4, 0);
+            UiHelper.ApplyRoundedCorners(_cardMdl, 14);
             // Use compact gutters so five cards fit cleanly in the dashboard row.
             foreach (Control card in cardsLayout.Controls) card.Margin = new Padding(0, 0, 8, 0);
             cardsLayout.Controls[4].Margin = new Padding(0);
@@ -936,6 +1021,7 @@ namespace Revenuemanagement
             {
                 _manager.IsDarkTheme = !_manager.IsDarkTheme;
                 Theme.Apply(_manager.IsDarkTheme);
+                Program.ApplyKryptonTheme(_manager.IsDarkTheme);
                 ApplyThemeToForm();
                 AdjustFilterBarHeight();
                 RefreshDashboard();

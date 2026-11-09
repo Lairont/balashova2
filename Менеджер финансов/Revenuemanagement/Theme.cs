@@ -1,11 +1,10 @@
 using System.Drawing;
 using System.Windows.Forms;
+using Krypton.Toolkit;
 
 namespace Revenuemanagement
 {
-    /// <summary>
-    /// Светлая и тёмная темы. Цвета берутся из текущего режима.
-    /// </summary>
+    /// <summary>Цвета интерфейса для светлого и тёмного режимов.</summary>
     public static class Theme
     {
         public static bool IsDark { get; private set; }
@@ -19,6 +18,7 @@ namespace Revenuemanagement
         public static Color BgCardRub { get; private set; }
         public static Color BgCardUsd { get; private set; }
         public static Color BgCardEur { get; private set; }
+        public static Color BgCardMdl { get; private set; }
         public static Color AccentPurple { get; private set; }
         public static Color BgGrid { get; private set; }
         public static Color BgGridAlt { get; private set; }
@@ -32,6 +32,7 @@ namespace Revenuemanagement
         public static Color AccentGold { get; private set; }
         public static Color SelectionBack { get; private set; }
         public static Color FooterBack { get; private set; }
+        public static Color Border { get; private set; }
 
         static Theme()
         {
@@ -41,66 +42,65 @@ namespace Revenuemanagement
         public static void Apply(bool dark)
         {
             IsDark = dark;
-            AccentGreen = Color.FromArgb(46, 160, 120);
-            AccentRed = Color.FromArgb(210, 85, 85);
-            AccentBlue = Color.FromArgb(70, 130, 180);
-            AccentGold = Color.FromArgb(212, 160, 50);
-            AccentPurple = Color.FromArgb(140, 100, 190);
+            AccentGreen = Color.FromArgb(48, 185, 125);
+            AccentRed = Color.FromArgb(230, 86, 91);
+            AccentBlue = Color.FromArgb(83, 145, 220);
+            AccentGold = Color.FromArgb(224, 168, 71);
+            AccentPurple = Color.FromArgb(166, 131, 226);
 
             if (dark)
             {
-                // Диалоги: #1E2329, поля ввода: #2A2F35
-                BgMain = Color.FromArgb(0x1E, 0x23, 0x29);
-                BgDialog = Color.FromArgb(0x1E, 0x23, 0x29);
-                BgInput = Color.FromArgb(0x2A, 0x2F, 0x35);
-                BgSidebar = Color.FromArgb(18, 22, 30);
-                BgCard = Color.FromArgb(40, 46, 58);
-                BgCardPrb = Color.FromArgb(32, 55, 48);
-                BgCardRub = Color.FromArgb(32, 45, 62);
-                BgCardUsd = Color.FromArgb(55, 48, 32);
-                BgCardEur = Color.FromArgb(52, 42, 62);
-                BgGrid = Color.FromArgb(36, 42, 54);
-                BgGridAlt = Color.FromArgb(42, 48, 60);
-                BgHeader = Color.FromArgb(22, 28, 38);
-                TextPrimary = Color.White;
-                TextMuted = Color.FromArgb(180, 188, 198);
-                TextOnSidebar = Color.FromArgb(220, 228, 240);
-                SelectionBack = Color.FromArgb(55, 75, 100);
-                FooterBack = Color.FromArgb(22, 26, 34);
+                BgMain = Color.FromArgb(26, 27, 32);
+                BgDialog = Color.FromArgb(31, 33, 39);
+                BgInput = Color.FromArgb(39, 42, 50);
+                BgSidebar = Color.FromArgb(22, 24, 29);
+                BgCard = Color.FromArgb(36, 38, 45);
+                BgCardPrb = Color.FromArgb(31, 54, 45);
+                BgCardRub = Color.FromArgb(31, 45, 63);
+                BgCardUsd = Color.FromArgb(55, 46, 31);
+                BgCardEur = Color.FromArgb(47, 39, 59);
+                BgCardMdl = Color.FromArgb(32, 50, 51);
+                BgGrid = Color.FromArgb(32, 34, 40);
+                BgGridAlt = Color.FromArgb(37, 39, 46);
+                BgHeader = Color.FromArgb(45, 48, 57);
+                TextPrimary = Color.FromArgb(244, 245, 247);
+                TextMuted = Color.FromArgb(166, 171, 181);
+                TextOnSidebar = Color.FromArgb(240, 242, 246);
+                SelectionBack = Color.FromArgb(54, 74, 99);
+                FooterBack = Color.FromArgb(30, 32, 38);
+                Border = Color.FromArgb(55, 58, 68);
             }
             else
             {
-                BgMain = Color.FromArgb(245, 248, 252);
-                BgDialog = Color.FromArgb(245, 248, 252);
+                BgMain = Color.FromArgb(244, 246, 249);
+                BgDialog = Color.FromArgb(249, 250, 252);
                 BgInput = Color.White;
-                BgSidebar = Color.FromArgb(36, 59, 85);
+                BgSidebar = Color.FromArgb(27, 36, 50);
                 BgCard = Color.White;
-                BgCardPrb = Color.FromArgb(230, 245, 238);
-                BgCardRub = Color.FromArgb(232, 240, 250);
-                BgCardUsd = Color.FromArgb(255, 246, 230);
-                BgCardEur = Color.FromArgb(238, 232, 250);
+                BgCardPrb = Color.FromArgb(229, 245, 237);
+                BgCardRub = Color.FromArgb(231, 240, 251);
+                BgCardUsd = Color.FromArgb(252, 244, 228);
+                BgCardEur = Color.FromArgb(240, 234, 250);
+                BgCardMdl = Color.FromArgb(229, 243, 241);
                 BgGrid = Color.White;
-                BgGridAlt = Color.FromArgb(248, 250, 252);
-                BgHeader = Color.FromArgb(36, 59, 85);
-                TextPrimary = Color.FromArgb(40, 50, 60);
-                TextMuted = Color.FromArgb(110, 120, 135);
+                BgGridAlt = Color.FromArgb(247, 249, 252);
+                BgHeader = Color.FromArgb(38, 49, 67);
+                TextPrimary = Color.FromArgb(38, 43, 52);
+                TextMuted = Color.FromArgb(105, 113, 126);
                 TextOnSidebar = Color.White;
-                SelectionBack = Color.FromArgb(210, 230, 245);
-                FooterBack = Color.FromArgb(236, 240, 245);
+                SelectionBack = Color.FromArgb(218, 232, 248);
+                FooterBack = Color.FromArgb(236, 239, 244);
+                Border = Color.FromArgb(249, 250, 252);
             }
         }
 
-        /// <summary>
-        /// Рекурсивно применяет текущую тему ко всем контролам формы/панели.
-        /// Кнопки с уже заданным цветным фоном (акцентные) не перекрашиваются.
-        /// </summary>
+        /// <summary>Применяет текущую палитру ко всем элементам формы.</summary>
         public static void ApplyTo(Control root)
         {
             if (root == null)
                 return;
 
             ApplyToControl(root);
-
             foreach (Control child in root.Controls)
                 ApplyTo(child);
         }
@@ -109,21 +109,21 @@ namespace Revenuemanagement
         {
             if (c is Form || c is Panel || c is GroupBox || c is TableLayoutPanel || c is FlowLayoutPanel)
             {
-                // Акцентные карточки главной формы не трогаем по имени
-                if (c.Name == "cardPrb" || c.Name == "cardRub" || c.Name == "cardUsd" ||
-                    c.Name == "cardEur" || c.Name == "panelSidebar")
-                    return;
-
-                c.BackColor = (c is Form) ? BgDialog : (c.Name == "panelAdd" || c is GroupBox ? BgCard : BgDialog);
+                bool card = c.Name == "panelAdd" || c.Name == "panelGridHost" ||
+                            c.Name.StartsWith("card") || c is GroupBox;
+                c.BackColor = c is Form || c.Name == "dialogLayout" || c is TableLayoutPanel
+                    ? BgDialog
+                    : (card ? BgCard : Color.Transparent);
                 c.ForeColor = TextPrimary;
+
+                if (card)
+                    UiHelper.ApplyRoundedCorners(c, 12);
                 return;
             }
 
             if (c is Label || c is CheckBox || c is RadioButton || c is LinkLabel)
             {
-                c.ForeColor = c is Label && LooksLikeMutedLabel(c)
-                    ? TextMuted
-                    : TextPrimary;
+                c.ForeColor = c is Label && LooksLikeMutedLabel(c) ? TextMuted : TextPrimary;
                 c.BackColor = Color.Transparent;
                 return;
             }
@@ -132,6 +132,14 @@ namespace Revenuemanagement
             {
                 c.BackColor = BgInput;
                 c.ForeColor = TextPrimary;
+                return;
+            }
+
+            if (c is KryptonComboBox kryptonCombo)
+            {
+                kryptonCombo.PaletteMode = PaletteMode.Global;
+                kryptonCombo.BackColor = BgInput;
+                kryptonCombo.ForeColor = TextPrimary;
                 return;
             }
 
@@ -164,6 +172,11 @@ namespace Revenuemanagement
 
             if (c is DataGridView grid)
             {
+                grid.BorderStyle = BorderStyle.None;
+                grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+                grid.DefaultCellStyle.Padding = new Padding(8, 0, 8, 0);
+                grid.ColumnHeadersDefaultCellStyle.Padding = new Padding(10, 0, 8, 0);
                 grid.BackgroundColor = BgGrid;
                 grid.DefaultCellStyle.BackColor = BgGrid;
                 grid.DefaultCellStyle.ForeColor = TextPrimary;
@@ -174,25 +187,29 @@ namespace Revenuemanagement
                 grid.EnableHeadersVisualStyles = false;
                 grid.ColumnHeadersDefaultCellStyle.BackColor = BgHeader;
                 grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                grid.GridColor = IsDark ? Color.FromArgb(55, 60, 70) : Color.FromArgb(220, 225, 230);
+                grid.GridColor = Border;
                 return;
             }
 
             if (c is Button btn)
             {
-                // Акцентные кнопки (зелёные/красные/синие) оставляем как есть
+                UiHelper.ApplyRoundedCorners(btn, 9);
                 if (IsAccentButton(btn))
                     return;
 
-                // Нейтральная «Отмена» и подобные
                 btn.FlatStyle = FlatStyle.Flat;
                 btn.FlatAppearance.BorderSize = 0;
-                btn.BackColor = IsDark ? BgInput : Color.FromArgb(200, 205, 215);
+                btn.FlatAppearance.MouseOverBackColor = IsDark
+                    ? Color.FromArgb(57, 61, 71)
+                    : Color.FromArgb(224, 229, 237);
+                btn.FlatAppearance.MouseDownBackColor = IsDark
+                    ? Color.FromArgb(46, 50, 59)
+                    : Color.FromArgb(213, 220, 230);
+                btn.BackColor = IsDark ? Color.FromArgb(48, 52, 61) : Color.FromArgb(232, 236, 242);
                 btn.ForeColor = TextPrimary;
                 return;
             }
 
-            // Прочие контролы — хотя бы читаемый текст
             if (!(c is ExpensePiePanel))
                 c.ForeColor = TextPrimary;
         }
@@ -200,13 +217,9 @@ namespace Revenuemanagement
         private static bool LooksLikeMutedLabel(Control c)
         {
             string t = c.Text ?? string.Empty;
-            // Подписи полей обычно короткие и заканчиваются на «:» или это tip
-            return c.Name == "tip" ||
-                   c.Name == "fieldLabel" ||
-                   c.Name == "hint" ||
-                   t.EndsWith(":") ||
-                   t == "Имя" || t == "Сумма" || t == "Валюта" || t == "Кто кому" ||
-                   t == "Период:" || t == "Категория" ||
+            return c.Name == "tip" || c.Name == "fieldLabel" || c.Name == "hint" ||
+                   t.EndsWith(":") || t == "Имя" || t == "Сумма" || t == "Валюта" ||
+                   t == "Кто кому" || t == "Период:" || t == "Категория" ||
                    t.IndexOf("необязательно", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
                    t.IndexOf("Пример:", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
                    t.IndexOf("Если случайно", System.StringComparison.OrdinalIgnoreCase) >= 0;
@@ -215,10 +228,8 @@ namespace Revenuemanagement
         private static bool IsAccentButton(Button btn)
         {
             Color b = btn.BackColor;
-            return ColorsClose(b, AccentGreen) ||
-                   ColorsClose(b, AccentRed) ||
-                   ColorsClose(b, AccentBlue) ||
-                   ColorsClose(b, AccentGold);
+            return ColorsClose(b, AccentGreen) || ColorsClose(b, AccentRed) ||
+                   ColorsClose(b, AccentBlue) || ColorsClose(b, AccentGold);
         }
 
         private static bool ColorsClose(Color a, Color b)

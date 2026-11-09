@@ -2,12 +2,22 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using Krypton.Toolkit;
 
 namespace Revenuemanagement
 {
     internal static class Program
     {
         private static bool _showingError;
+        private static KryptonManager _kryptonManager;
+
+        internal static void ApplyKryptonTheme(bool dark)
+        {
+            if (_kryptonManager != null)
+                _kryptonManager.GlobalPaletteMode = dark
+                    ? PaletteMode.Microsoft365BlackDarkMode
+                    : PaletteMode.Microsoft365White;
+        }
 
         /// <summary>
         /// Главная точка входа для приложения.
@@ -25,7 +35,13 @@ namespace Revenuemanagement
             AppDomain.CurrentDomain.UnhandledException +=
                 (s, e) => HandleException(e.ExceptionObject as Exception, false);
 
-            Application.Run(new Form1());
+            using (var krypton = new KryptonManager())
+            {
+                _kryptonManager = krypton;
+                krypton.GlobalPaletteMode = PaletteMode.Microsoft365BlackDarkMode;
+                Application.Run(new Form1());
+                _kryptonManager = null;
+            }
         }
 
         private static void HandleException(Exception exception, bool canContinue)
